@@ -167,10 +167,8 @@ function zIndex(index: number) {
   }
 
   @media (max-width: 1023px) {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
+    left: 0;
+    right: 0;
     width: 100%;
 
     &__list {
@@ -181,16 +179,12 @@ function zIndex(index: number) {
       height: auto;
     }
 
-    &__item {
-      position: relative;
-      overflow: visible;
-    }
-
     &__panel {
+      margin-top: 8px;
       border-top: none;
       border: 1px solid var(--color-accent);
       border-radius: var(--radius-md);
-      box-shadow: 0 4px 16px rgb(0 0 0 / 6%);
+      box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
     }
 
     &__inner {

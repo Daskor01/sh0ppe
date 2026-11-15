@@ -20,7 +20,13 @@
         :class="{ 'product-accordions__panel-wrap--open': isOpen(section.id) }"
       >
         <div class="product-accordions__panel">
-          <p>{{ section.body }}</p>
+          <ProductReviewsSection
+            v-if="section.id === 'reviews'"
+            :product-name="productName"
+            :reviews="detail.reviews"
+            layout="mobile"
+          />
+          <p v-else>{{ section.body }}</p>
         </div>
       </div>
     </div>
@@ -33,6 +39,7 @@ import type { ProductPageContent } from '~/types/product'
 
 const props = defineProps<{
   detail: ProductPageContent
+  productName: string
   openSection?: 'description' | 'additional' | 'reviews' | null
 }>()
 
@@ -63,10 +70,7 @@ const sections = computed(() => [
   {
     id: 'reviews' as const,
     title: `Reviews(${props.detail.reviewCount})`,
-    body:
-      props.detail.reviewCount === 0
-        ? 'There are no reviews yet.'
-        : 'Customer reviews will appear here.',
+    body: '',
   },
 ])
 

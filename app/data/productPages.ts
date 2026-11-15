@@ -1,4 +1,4 @@
-import type { Product, ProductGalleryImage, ProductPageContent } from '~/types/product'
+import type { Product, ProductGalleryImage, ProductPageContent, ProductReview } from '~/types/product'
 import { shopProducts } from '~/data/shop'
 
 const LOREM_SHORT =
@@ -45,15 +45,70 @@ function buildGallery(product: Product): ProductGalleryImage[] {
   }))
 }
 
+const REVIEW_BODY =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
+
+const productReviews: Partial<Record<string, ProductReview[]>> = {
+  'lira-earrings': [
+    {
+      id: 'lira-r1',
+      author: 'Scarlet withch',
+      dateLabel: '6 May, 2020',
+      rating: 3,
+      body: REVIEW_BODY,
+    },
+    {
+      id: 'lira-r2',
+      author: 'Emma stone',
+      dateLabel: '12 June, 2020',
+      rating: 5,
+      body: REVIEW_BODY,
+    },
+    {
+      id: 'lira-r3',
+      author: 'John Doe',
+      dateLabel: '3 July, 2020',
+      rating: 4,
+      body: REVIEW_BODY,
+    },
+    {
+      id: 'lira-r4',
+      author: 'Anna Lee',
+      dateLabel: '19 August, 2020',
+      rating: 5,
+      body: REVIEW_BODY,
+    },
+    {
+      id: 'lira-r5',
+      author: 'Mark Twain',
+      dateLabel: '1 September, 2020',
+      rating: 2,
+      body: REVIEW_BODY,
+    },
+    {
+      id: 'lira-r6',
+      author: 'Lucy Gray',
+      dateLabel: '15 October, 2020',
+      rating: 5,
+      body: REVIEW_BODY,
+    },
+  ],
+}
+
 const pageOverrides: Partial<
-  Record<string, Pick<ProductPageContent, 'sku' | 'rating' | 'reviewCount'>>
+  Record<string, Pick<ProductPageContent, 'sku' | 'rating'>>
 > = {
-  'lira-earrings': { sku: '12', rating: 5, reviewCount: 1 },
-  'hal-earrings': { sku: '18', rating: 5, reviewCount: 0 },
+  'lira-earrings': { sku: '12', rating: 5 },
+  'hal-earrings': { sku: '18', rating: 5 },
+}
+
+function getReviewsForProduct(product: Product): ProductReview[] {
+  return productReviews[product.slug] ?? []
 }
 
 export function getProductPageContent(product: Product): ProductPageContent {
   const override = pageOverrides[product.slug]
+  const reviews = getReviewsForProduct(product)
 
   return {
     sku: override?.sku ?? product.id.toUpperCase(),
@@ -62,7 +117,8 @@ export function getProductPageContent(product: Product): ProductPageContent {
     description: LOREM_BODY,
     additionalInformation: ADDITIONAL_INFO,
     rating: override?.rating ?? 4,
-    reviewCount: override?.reviewCount ?? 0,
+    reviewCount: reviews.length,
+    reviews,
     gallery: buildGallery(product),
   }
 }

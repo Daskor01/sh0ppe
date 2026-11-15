@@ -116,7 +116,7 @@ defineExpose({
     border: none;
     background: transparent;
     font-family: var(--font-sans);
-    font-size: 14px;
+    @include mixins.field-text-size;
     color: var(--color-text);
 
     &::placeholder {

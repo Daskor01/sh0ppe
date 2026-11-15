@@ -1,8 +1,9 @@
 <template>
   <header class="site-header" :class="{ 'site-header--menu-open': showDrawer }">
-    <div class="site-header__mobile-wrap">
-      <div class="site-header__bar">
-        <div class="site-header__inner">
+    <div class="site-header__sticky">
+      <div class="site-header__mobile-wrap">
+        <div class="site-header__bar">
+          <div class="site-header__inner">
           <UiAppLogo class="site-header__logo" />
 
           <div class="site-header__desktop-cluster">
@@ -44,28 +45,30 @@
               <Menu :size="24" aria-hidden="true" />
             </button>
           </div>
+          </div>
         </div>
+
+        <LayoutHeaderDesktopSearch
+          ref="desktopSearchRef"
+          v-model="searchQuery"
+          :open="desktopSearchOpen"
+          :recents-visible="desktopSearchRecentsVisible"
+          @submit="onDesktopSearchSubmit()"
+          @escape="onDesktopSearchEscape()"
+          @after-enter="onDesktopSearchAfterEnter()"
+          @before-leave="onDesktopSearchBeforeLeave()"
+        />
+
+        <LayoutAppToast class="site-header__toast" />
       </div>
+    </div>
 
-      <LayoutHeaderDesktopSearch
-        ref="desktopSearchRef"
-        v-model="searchQuery"
-        :open="desktopSearchOpen"
-        :recents-visible="desktopSearchRecentsVisible"
-        @submit="onDesktopSearchSubmit()"
-        @escape="onDesktopSearchEscape()"
-        @after-enter="onDesktopSearchAfterEnter()"
-        @before-leave="onDesktopSearchBeforeLeave()"
-      />
-
+    <div v-show="showMobileSearch" class="site-header__mobile-search-band">
       <LayoutHeaderMobileSearch
-        v-show="showMobileSearch"
         v-model="searchQuery"
         @submit="submitSearch()"
         @escape="onMobileSearchEscape()"
       />
-
-      <LayoutAppToast class="site-header__toast" />
     </div>
 
     <LayoutMobileNavMenu
@@ -182,11 +185,25 @@ const navLinks = [
 
 <style scoped lang="scss">
 .site-header {
-  position: sticky;
-  top: 0;
   z-index: var(--z-header);
   background: var(--color-surface);
-  isolation: isolate;
+
+  &__sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: var(--color-surface);
+    isolation: isolate;
+  }
+
+  &__mobile-search-band {
+    padding-inline: var(--gutter-mobile);
+    background: var(--color-surface);
+
+    @include mixins.respond-to(lg) {
+      display: none;
+    }
+  }
 
   &__mobile-wrap {
     @media (max-width: 1023px) {
@@ -367,16 +384,11 @@ const navLinks = [
     }
   }
 
-  &--menu-open :deep(.header-mobile-search) {
+  &--menu-open &__mobile-search-band {
     @media (max-width: 1023px) {
       pointer-events: none;
     }
   }
 
-  &__toast {
-    @media (max-width: 1023px) {
-      padding-bottom: 12px;
-    }
-  }
 }
 </style>

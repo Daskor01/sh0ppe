@@ -11,8 +11,12 @@
     </div>
 
     <div class="product-page__details">
-      <ProductDetailTabs :detail="detail" />
-      <ProductDetailAccordions :detail="detail" :open-section="accordionSection" />
+      <ProductDetailTabs :detail="detail" :product-name="product.name" />
+      <ProductDetailAccordions
+        :detail="detail"
+        :product-name="product.name"
+        :open-section="accordionSection"
+      />
     </div>
 
     <ProductSimilarSection :products="similarProducts" />

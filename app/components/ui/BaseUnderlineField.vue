@@ -131,7 +131,7 @@ function clearValue() {
     padding: 0;
     border: none;
     font-family: var(--font-sans);
-    font-size: 16px;
+    @include mixins.field-text-size;
     line-height: 1.4;
     color: var(--color-text);
     background: transparent;

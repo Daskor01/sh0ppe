@@ -147,7 +147,7 @@ onUnmounted(() => {
     width: 100%;
     padding: 14px 16px;
     font-family: var(--font-sans);
-    font-size: 14px;
+    @include mixins.field-text-size;
     text-align: left;
     color: var(--color-text-muted);
     background: var(--color-surface);
@@ -241,7 +241,6 @@ onUnmounted(() => {
   &--underline {
     .base-select__trigger {
       padding: 0 0 10px;
-      font-size: 16px;
       color: var(--color-text);
       background: transparent;
       border: none;

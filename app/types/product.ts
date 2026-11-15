@@ -31,6 +31,14 @@ export interface ProductGalleryImage {
   alt: string
 }
 
+export interface ProductReview {
+  id: string
+  author: string
+  dateLabel: string
+  rating: number
+  body: string
+}
+
 export interface ProductPageContent {
   sku: string
   categoryLabels: string[]
@@ -39,5 +47,6 @@ export interface ProductPageContent {
   additionalInformation: string
   rating: number
   reviewCount: number
+  reviews: ProductReview[]
   gallery: ProductGalleryImage[]
 }

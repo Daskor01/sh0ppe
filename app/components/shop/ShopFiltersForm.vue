@@ -4,24 +4,26 @@
     class="shop-filters-form"
     :class="formVariantClass"
     @submit.prevent
-    @focusin="onSearchFocusIn()"
-    @focusout="onSearchFocusOut($event)"
+    @focusin="onFormFocusIn()"
+    @focusout="onFormFocusOut($event)"
   >
-    <UiSearchField
-      :id="searchId"
-      v-model="inputQuery"
-      placeholder="Search.."
-      variant="underline"
-      icon-position="end"
-      @escape="inputQuery = ''"
-      @submit="onSearchSubmit()"
-    />
+    <template v-if="showShopSearch">
+      <UiSearchField
+        :id="searchId"
+        v-model="inputQuery"
+        placeholder="Search.."
+        variant="underline"
+        icon-position="end"
+        @escape="inputQuery = ''"
+        @submit="onSearchSubmit()"
+      />
 
-    <SearchRecentQueries
-      :visible="showRecentQueries"
-      :require-focus-on-mobile="requireFocusOnMobile"
-      :field-focused="searchFieldFocused"
-    />
+      <SearchRecentQueries
+        :visible="showRecentQueries"
+        :require-focus-on-mobile="false"
+        :field-focused="searchFieldFocused"
+      />
+    </template>
 
     <UiBaseSelect
       v-model="filters.category"
@@ -77,13 +79,11 @@ const sortOptions: BaseSelectOption<ShopSortOption>[] = [
   { value: 'name', label: 'Name' },
 ]
 
-const searchId = computed(() =>
-  props.variant === 'drawer' ? 'shop-filter-search-drawer' : 'shop-filter-search-sidebar',
-)
+const showShopSearch = computed(() => props.variant === 'sidebar')
+
+const searchId = 'shop-filter-search-sidebar'
 
 const formVariantClass = computed(() => `shop-filters-form--${props.variant}`)
-
-const requireFocusOnMobile = computed(() => props.variant === 'drawer')
 
 const showRecentQueries = computed(() => !inputQuery.value.trim())
 
@@ -94,11 +94,17 @@ function onSearchSubmit() {
 const formRef = ref<HTMLElement | null>(null)
 const searchFieldFocused = ref(false)
 
-function onSearchFocusIn() {
+function onFormFocusIn() {
+  if (!showShopSearch.value) {
+    return
+  }
   searchFieldFocused.value = true
 }
 
-function onSearchFocusOut(event: FocusEvent) {
+function onFormFocusOut(event: FocusEvent) {
+  if (!showShopSearch.value) {
+    return
+  }
   const root = formRef.value
   if (!root) {
     searchFieldFocused.value = false
@@ -117,10 +123,6 @@ function onSearchFocusOut(event: FocusEvent) {
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  &--drawer :deep(.search-field--underline) {
-    padding-bottom: 12px;
-  }
 
   &__toggles {
     display: flex;

@@ -17,8 +17,19 @@
 
     <div class="product-tabs__panels">
       <Transition name="product-tabs-panel" mode="out-in">
-        <div :key="activeTab" role="tabpanel" class="product-tabs__panel">
-          <p>{{ activePanelText }}</p>
+        <div
+          :key="activeTab"
+          role="tabpanel"
+          class="product-tabs__panel"
+          :class="panelClass"
+        >
+          <ProductReviewsSection
+            v-if="activeTab === 'reviews'"
+            :product-name="productName"
+            :reviews="detail.reviews"
+            layout="desktop"
+          />
+          <p v-else>{{ activePanelText }}</p>
         </div>
       </Transition>
     </div>
@@ -30,6 +41,7 @@ import type { ProductPageContent } from '~/types/product'
 
 const props = defineProps<{
   detail: ProductPageContent
+  productName: string
 }>()
 
 type TabId = 'description' | 'additional' | 'reviews'
@@ -43,11 +55,12 @@ const activePanelText = computed(() => {
   if (activeTab.value === 'additional') {
     return props.detail.additionalInformation
   }
-  if (props.detail.reviewCount === 0) {
-    return 'There are no reviews yet.'
-  }
-  return 'Customer reviews will appear here.'
+  return ''
 })
+
+const panelClass = computed(() => ({
+  'product-tabs__panel--reviews': activeTab.value === 'reviews',
+}))
 
 function isTabActive(tabId: TabId) {
   return activeTab.value === tabId
@@ -121,6 +134,10 @@ const tabs: { id: TabId; label: string }[] = [
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-text-muted);
+
+    &--reviews {
+      max-width: none;
+    }
 
     p {
       margin: 0;

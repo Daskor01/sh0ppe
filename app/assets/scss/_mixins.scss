@@ -44,6 +44,15 @@
   outline-offset: 2px;
 }
 
+// iOS Safari zooms focused inputs below 16px — bump on narrow viewports
+@mixin field-text-size {
+  font-size: 16px;
+
+  @include respond-to(lg) {
+    font-size: 14px;
+  }
+}
+
 @mixin overlay-gradient {
   background: linear-gradient(180deg, rgb(0 0 0 / 0%) 40%, rgb(0 0 0 / 35%) 100%);
 }
