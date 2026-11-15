@@ -23,11 +23,7 @@
       </button>
     </div>
 
-    <form
-      v-if="isSignInTab"
-      class="account-auth__form"
-      @submit.prevent="onSignIn()"
-    >
+    <form v-if="isSignInTab" class="account-auth__form" @submit.prevent="onSignIn()">
       <UiBaseUnderlineField
         id="account-sign-in-email"
         v-model="signInEmail"
@@ -81,133 +77,133 @@
 </template>
 
 <script setup lang="ts">
-import { ACCOUNT_MOCK_EMAIL, ACCOUNT_MOCK_PASSWORD } from '~/data/accountMock'
-import { resolveAfterAccountAuth } from '~/utils/accountRedirect'
+  import { ACCOUNT_MOCK_EMAIL, ACCOUNT_MOCK_PASSWORD } from '~/data/accountMock'
+  import { resolveAfterAccountAuth } from '~/utils/accountRedirect'
 
-type AuthTab = 'sign-in' | 'register'
+  type AuthTab = 'sign-in' | 'register'
 
-const activeTab = ref<AuthTab>('sign-in')
-const session = useAccountSession()
-const router = useRouter()
+  const activeTab = ref<AuthTab>('sign-in')
+  const session = useAccountSession()
+  const router = useRouter()
 
-const signInEmail = ref(ACCOUNT_MOCK_EMAIL)
-const signInPassword = ref(ACCOUNT_MOCK_PASSWORD)
-const rememberMe = ref(true)
+  const signInEmail = ref(ACCOUNT_MOCK_EMAIL)
+  const signInPassword = ref(ACCOUNT_MOCK_PASSWORD)
+  const rememberMe = ref(true)
 
-const registerEmail = ref(ACCOUNT_MOCK_EMAIL)
-const registerPassword = ref(ACCOUNT_MOCK_PASSWORD)
+  const registerEmail = ref(ACCOUNT_MOCK_EMAIL)
+  const registerPassword = ref(ACCOUNT_MOCK_PASSWORD)
 
-const route = useRoute()
+  const route = useRoute()
 
-function onSignIn() {
-  session.signIn()
-  useToastStore().show({
-    message: 'Welcome back! You are signed in (demo).',
-  })
-  router.push(resolveAfterAccountAuth(route.query.redirect))
-}
+  function onSignIn() {
+    session.signIn()
+    useToastStore().show({
+      message: 'Welcome back! You are signed in (demo).',
+    })
+    router.push(resolveAfterAccountAuth(route.query.redirect))
+  }
 
-const isSignInTab = computed(() => activeTab.value === 'sign-in')
-const isRegisterTab = computed(() => activeTab.value === 'register')
+  const isSignInTab = computed(() => activeTab.value === 'sign-in')
+  const isRegisterTab = computed(() => activeTab.value === 'register')
 
-const signInTabClass = computed(() => ({
-  'account-auth__tab--active': isSignInTab.value,
-}))
+  const signInTabClass = computed(() => ({
+    'account-auth__tab--active': isSignInTab.value,
+  }))
 
-const registerTabClass = computed(() => ({
-  'account-auth__tab--active': isRegisterTab.value,
-}))
+  const registerTabClass = computed(() => ({
+    'account-auth__tab--active': isRegisterTab.value,
+  }))
 
-function onRegister() {
-  session.signIn()
-  useToastStore().show({
-    message: 'Account created (demo). You are now signed in.',
-  })
-  router.push(resolveAfterAccountAuth(route.query.redirect))
-}
+  function onRegister() {
+    session.signIn()
+    useToastStore().show({
+      message: 'Account created (demo). You are now signed in.',
+    })
+    router.push(resolveAfterAccountAuth(route.query.redirect))
+  }
 </script>
 
 <style scoped lang="scss">
-.account-auth {
-  width: 100%;
-  max-width: 400px;
-  margin-inline: auto;
+  .account-auth {
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
 
-  &__tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    margin-bottom: 32px;
-    padding: 4px;
-    background: var(--color-surface-muted);
-    border-radius: var(--radius-md);
-  }
+    &__tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin-bottom: 32px;
+      padding: 4px;
+      background: var(--color-surface-muted);
+      border-radius: var(--radius-md);
+    }
 
-  &__tab {
-    padding: 12px 16px;
-    border: none;
-    border-radius: calc(var(--radius-md) - 2px);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-text-muted);
-    background: transparent;
-    cursor: pointer;
-    transition:
-      color var(--transition-base),
-      background var(--transition-base),
-      box-shadow var(--transition-base);
+    &__tab {
+      padding: 12px 16px;
+      border: none;
+      border-radius: calc(var(--radius-md) - 2px);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: transparent;
+      cursor: pointer;
+      transition:
+        color var(--transition-base),
+        background var(--transition-base),
+        box-shadow var(--transition-base);
 
-    &--active {
+      &--active {
+        color: var(--color-text);
+        background: var(--color-surface);
+        box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
+      }
+
+      @include mixins.focus-ring-fine-pointer-only;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &__remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
       color: var(--color-text);
-      background: var(--color-surface);
-      box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
+      cursor: pointer;
     }
 
-    @include mixins.focus-ring-fine-pointer-only;
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  &__remember {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--color-text);
-    cursor: pointer;
-  }
-
-  &__checkbox {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    accent-color: var(--color-text);
-  }
-
-  &__submit {
-    margin-top: 4px;
-  }
-
-  &__forgot {
-    align-self: center;
-    font-size: 14px;
-    color: var(--color-text-muted);
-    text-align: center;
-    text-decoration: none;
-    transition: color var(--transition-base);
-
-    &:hover {
-      color: var(--color-accent);
+    &__checkbox {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--color-text);
     }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
+    &__submit {
+      margin-top: 4px;
+    }
+
+    &__forgot {
+      align-self: center;
+      font-size: 14px;
+      color: var(--color-text-muted);
+      text-align: center;
+      text-decoration: none;
+      transition: color var(--transition-base);
+
+      &:hover {
+        color: var(--color-accent);
+      }
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
     }
   }
-}
 </style>

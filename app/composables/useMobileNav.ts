@@ -46,8 +46,7 @@ export function useMobileNav() {
     if (cartDrawerOpen.value) {
       return
     }
-    document.body.style.overflow =
-      openState && isMobileViewport.value ? 'hidden' : ''
+    document.body.style.overflow = openState && isMobileViewport.value ? 'hidden' : ''
   })
 
   const route = useRoute()

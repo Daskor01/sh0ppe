@@ -83,83 +83,82 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ACCOUNT_MOCK_DISPLAY_NAME,
-  ACCOUNT_MOCK_EMAIL,
-  ACCOUNT_MOCK_FIRST_NAME,
-  ACCOUNT_MOCK_LAST_NAME,
-  ACCOUNT_PROFILE_READONLY,
-} from '~/data/accountMock'
+  import {
+    ACCOUNT_MOCK_DISPLAY_NAME,
+    ACCOUNT_MOCK_EMAIL,
+    ACCOUNT_MOCK_FIRST_NAME,
+    ACCOUNT_MOCK_LAST_NAME,
+    ACCOUNT_PROFILE_READONLY,
+  } from '~/data/accountMock'
 
-const firstName = ref(ACCOUNT_MOCK_FIRST_NAME)
-const lastName = ref(ACCOUNT_MOCK_LAST_NAME)
-const displayName = ref(ACCOUNT_MOCK_DISPLAY_NAME)
-const email = ref(ACCOUNT_MOCK_EMAIL)
-const currentPassword = ref('')
-const newPassword = ref('')
-const confirmPassword = ref('')
-
+  const firstName = ref(ACCOUNT_MOCK_FIRST_NAME)
+  const lastName = ref(ACCOUNT_MOCK_LAST_NAME)
+  const displayName = ref(ACCOUNT_MOCK_DISPLAY_NAME)
+  const email = ref(ACCOUNT_MOCK_EMAIL)
+  const currentPassword = ref('')
+  const newPassword = ref('')
+  const confirmPassword = ref('')
 </script>
 
 <style scoped lang="scss">
-.account-details {
-  max-width: 560px;
+  .account-details {
+    max-width: 560px;
 
-  &__demo-note {
-    margin: -12px 0 24px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-  }
+    &__demo-note {
+      margin: -12px 0 24px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+    }
 
-  &__title {
-    margin: 0 0 28px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.3;
-    color: var(--color-text);
+    &__title {
+      margin: 0 0 28px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--color-text);
 
-    @include mixins.respond-to(lg) {
-      font-size: 20px;
-      margin-bottom: 32px;
+      @include mixins.respond-to(lg) {
+        font-size: 20px;
+        margin-bottom: 32px;
+      }
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &__grid {
+      display: grid;
+      gap: 24px;
+
+      @include mixins.respond-to(md) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    &__field {
+      width: 100%;
+    }
+
+    &__hint {
+      margin: -12px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+    }
+
+    &__subtitle {
+      margin: 8px 0 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    &__submit {
+      margin-top: 8px;
     }
   }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  &__grid {
-    display: grid;
-    gap: 24px;
-
-    @include mixins.respond-to(md) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  &__field {
-    width: 100%;
-  }
-
-  &__hint {
-    margin: -12px 0 0;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-  }
-
-  &__subtitle {
-    margin: 8px 0 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  &__submit {
-    margin-top: 8px;
-  }
-}
 </style>

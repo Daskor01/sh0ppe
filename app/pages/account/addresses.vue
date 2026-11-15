@@ -19,46 +19,46 @@
 </template>
 
 <script setup lang="ts">
-import { createDefaultBillingAddress } from '~/data/accountMock'
-import type { CheckoutBilling } from '~/types/order'
+  import { createDefaultBillingAddress } from '~/data/accountMock'
+  import type { CheckoutBilling } from '~/types/order'
 
-definePageMeta({
-  middleware: 'account-protected',
-})
+  definePageMeta({
+    middleware: 'account-protected',
+  })
 
-const billing = ref<CheckoutBilling>(createDefaultBillingAddress())
+  const billing = ref<CheckoutBilling>(createDefaultBillingAddress())
 
-function onSaveBilling() {
-  useToastStore().show({ message: 'Billing address saved (demo).' })
-}
+  function onSaveBilling() {
+    useToastStore().show({ message: 'Billing address saved (demo).' })
+  }
 
-function onAddShipping() {
-  useToastStore().show({ message: 'Shipping address form (demo).' })
-}
+  function onAddShipping() {
+    useToastStore().show({ message: 'Shipping address form (demo).' })
+  }
 </script>
 
 <style scoped lang="scss">
-.account-addresses {
-  &__lead {
-    margin: 0 0 28px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
+  .account-addresses {
+    &__lead {
+      margin: 0 0 28px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
 
-    @include mixins.respond-to(lg) {
-      margin-bottom: 36px;
+      @include mixins.respond-to(lg) {
+        margin-bottom: 36px;
+      }
+    }
+
+    &__grid {
+      display: grid;
+      gap: 40px;
+
+      @include mixins.respond-to(lg) {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: start;
+      }
     }
   }
-
-  &__grid {
-    display: grid;
-    gap: 40px;
-
-    @include mixins.respond-to(lg) {
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-  }
-}
 </style>

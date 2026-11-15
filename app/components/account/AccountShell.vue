@@ -15,41 +15,41 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
+  const route = useRoute()
 
-const { isSignedIn } = useAccountSession()
+  const { isSignedIn } = useAccountSession()
 
-const isPasswordFlow = computed(() => route.path.startsWith('/account/reset-password'))
+  const isPasswordFlow = computed(() => route.path.startsWith('/account/reset-password'))
 </script>
 
 <style scoped lang="scss">
-.account-shell--auth-flow {
-  width: 100%;
-}
-
-.account-page {
-  @include mixins.container;
-  padding-block: 24px 56px;
-
-  @include mixins.respond-to(lg) {
-    padding-block: 56px 88px;
-  }
-
-  &__title {
-    margin: 0 0 28px;
-    font-size: clamp(28px, 4vw, 40px);
-    font-weight: 500;
-    line-height: 1.2;
-    color: var(--color-text);
-    text-align: center;
-
-    @include mixins.respond-to(lg) {
-      margin-bottom: 40px;
-    }
-  }
-
-  &__content {
+  .account-shell--auth-flow {
     width: 100%;
   }
-}
+
+  .account-page {
+    @include mixins.container;
+    padding-block: 24px 56px;
+
+    @include mixins.respond-to(lg) {
+      padding-block: 56px 88px;
+    }
+
+    &__title {
+      margin: 0 0 28px;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--color-text);
+      text-align: center;
+
+      @include mixins.respond-to(lg) {
+        margin-bottom: 40px;
+      }
+    }
+
+    &__content {
+      width: 100%;
+    }
+  }
 </style>

@@ -3,9 +3,9 @@ import type { ProductReview } from '~/types/product'
 import type { ProductReviewsResponse } from '~/types/productReviewApi'
 import { formatReviewDateLabel } from '~/utils/formatReviewDate'
 import { parseCreateProductReviewBody } from '~/utils/parseCreateProductReviewBody'
-import { assertKnownProductSlug } from '../../../utils/productSlug'
-import { resolveReviewAuthor } from '../../../utils/reviewAuthor'
-import { appendStoredProductReview, readStoredProductReviews } from '../../../utils/reviewStore'
+import { assertKnownProductSlug } from '#server/utils/productSlug'
+import { resolveReviewAuthor } from '#server/utils/reviewAuthor'
+import { appendStoredProductReview, readStoredProductReviews } from '#server/utils/reviewStore'
 
 export default defineEventHandler(async (event): Promise<ProductReviewsResponse> => {
   const slug = assertKnownProductSlug(getRouterParam(event, 'slug'))

@@ -10,21 +10,21 @@
 </template>
 
 <style scoped lang="scss">
-.layout-default {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
+  .layout-default {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
 
-  /* sticky header must not shrink inside flex column */
-  > :first-child {
-    flex-shrink: 0;
-    width: 100%;
-  }
+    /* sticky header must not shrink inside flex column */
+    > :first-child {
+      flex-shrink: 0;
+      width: 100%;
+    }
 
-  &__main {
-    flex: 1;
-    min-width: 0;
+    &__main {
+      flex: 1;
+      min-width: 0;
+    }
   }
-}
 </style>

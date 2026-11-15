@@ -5,11 +5,7 @@
       Your Email Address Will Not Be Published. Required Fields Are Marked *
     </p>
 
-    <p
-      v-if="isSignedIn"
-      class="product-review-form__signed-in"
-      role="status"
-    >
+    <p v-if="isSignedIn" class="product-review-form__signed-in" role="status">
       You are signed in as
       <strong>{{ displayName }}</strong>
       . This review will be posted under your account name.
@@ -49,9 +45,7 @@
           class="product-review-form__checkbox-input"
           :disabled="submitting"
         />
-        <span>
-          Save my name, email, and website in this browser for the next time I comment.
-        </span>
+        <span> Save my name, email, and website in this browser for the next time I comment. </span>
       </label>
     </template>
 
@@ -74,143 +68,146 @@
 </template>
 
 <script setup lang="ts">
-import ProductReviewStars from '~/components/product/ProductReviewStars.vue'
-import { reviewSubmitErrorMessage, submitProductReview } from '~/composables/useSubmitProductReview'
+  import ProductReviewStars from '~/components/product/ProductReviewStars.vue'
+  import {
+    reviewSubmitErrorMessage,
+    submitProductReview,
+  } from '~/composables/useSubmitProductReview'
 
-const props = defineProps<{
-  productSlug: string
-}>()
+  const props = defineProps<{
+    productSlug: string
+  }>()
 
-const emit = defineEmits<{
-  submitted: []
-}>()
+  const emit = defineEmits<{
+    submitted: []
+  }>()
 
-const { isSignedIn, displayName, email: accountEmail, syncFromCookie } = useAccountSession()
+  const { isSignedIn, displayName, email: accountEmail, syncFromCookie } = useAccountSession()
 
-const body = ref('')
-const name = ref('')
-const email = ref('')
-const saveInBrowser = ref(false)
-const rating = ref(0)
-const submitting = ref(false)
+  const body = ref('')
+  const name = ref('')
+  const email = ref('')
+  const saveInBrowser = ref(false)
+  const rating = ref(0)
+  const submitting = ref(false)
 
-onMounted(() => {
-  syncFromCookie()
-})
+  onMounted(() => {
+    syncFromCookie()
+  })
 
-async function onSubmit() {
-  const authorName = isSignedIn.value ? displayName.value.trim() : name.value.trim()
-  const authorEmail = isSignedIn.value ? accountEmail.value.trim() : email.value.trim()
+  async function onSubmit() {
+    const authorName = isSignedIn.value ? displayName.value.trim() : name.value.trim()
+    const authorEmail = isSignedIn.value ? accountEmail.value.trim() : email.value.trim()
 
-  if (!body.value.trim() || !authorName || !authorEmail || rating.value < 1) {
-    useToastStore().show({ message: 'Please fill in all required fields.' })
-    return
+    if (!body.value.trim() || !authorName || !authorEmail || rating.value < 1) {
+      useToastStore().show({ message: 'Please fill in all required fields.' })
+      return
+    }
+
+    if (submitting.value) {
+      return
+    }
+
+    submitting.value = true
+
+    try {
+      await submitProductReview({
+        productSlug: props.productSlug,
+        body: body.value.trim(),
+        rating: rating.value,
+        authorName,
+        isSignedIn: isSignedIn.value,
+      })
+
+      body.value = ''
+      name.value = ''
+      email.value = ''
+      rating.value = 0
+      saveInBrowser.value = false
+
+      emit('submitted')
+
+      await nextTick()
+
+      useToastStore().show({
+        message: isSignedIn.value
+          ? `Thanks, ${displayName.value}! Your review was posted.`
+          : 'Thank you! Your review was posted.',
+      })
+    } catch (error: unknown) {
+      useToastStore().show({ message: reviewSubmitErrorMessage(error) })
+    } finally {
+      submitting.value = false
+    }
   }
-
-  if (submitting.value) {
-    return
-  }
-
-  submitting.value = true
-
-  try {
-    await submitProductReview({
-      productSlug: props.productSlug,
-      body: body.value.trim(),
-      rating: rating.value,
-      authorName,
-      isSignedIn: isSignedIn.value,
-    })
-
-    body.value = ''
-    name.value = ''
-    email.value = ''
-    rating.value = 0
-    saveInBrowser.value = false
-
-    emit('submitted')
-
-    await nextTick()
-
-    useToastStore().show({
-      message: isSignedIn.value
-        ? `Thanks, ${displayName.value}! Your review was posted.`
-        : 'Thank you! Your review was posted.',
-    })
-  } catch (error: unknown) {
-    useToastStore().show({ message: reviewSubmitErrorMessage(error) })
-  } finally {
-    submitting.value = false
-  }
-}
 </script>
 
 <style scoped lang="scss">
-.product-review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  &__title {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  &__hint {
-    margin: -8px 0 4px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-  }
-
-  &__signed-in {
-    margin: 0 0 4px;
-    padding: 12px 14px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-    background: var(--color-surface-muted);
-    border-radius: var(--radius-sm);
-
-    strong {
-      color: var(--color-text);
-      font-weight: 500;
-    }
-  }
-
-  &__checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-    cursor: pointer;
-  }
-
-  &__checkbox-input {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    margin-top: 2px;
-    accent-color: var(--color-text);
-  }
-
-  &__rating {
+  .product-review-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
+    gap: 20px;
 
-  &__rating-label {
-    font-size: 14px;
-    color: var(--color-text-muted);
-  }
+    &__title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
 
-  &__submit {
-    margin-top: 4px;
+    &__hint {
+      margin: -8px 0 4px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+    }
+
+    &__signed-in {
+      margin: 0 0 4px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+      background: var(--color-surface-muted);
+      border-radius: var(--radius-sm);
+
+      strong {
+        color: var(--color-text);
+        font-weight: 500;
+      }
+    }
+
+    &__checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+      cursor: pointer;
+    }
+
+    &__checkbox-input {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: var(--color-text);
+    }
+
+    &__rating {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &__rating-label {
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+
+    &__submit {
+      margin-top: 4px;
+    }
   }
-}
 </style>

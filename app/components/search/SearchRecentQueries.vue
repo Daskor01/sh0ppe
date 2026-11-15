@@ -20,49 +20,49 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    visible?: boolean
-    requireFocusOnMobile?: boolean
-    fieldFocused?: boolean
-    contentRevealed?: boolean
-    useFadeTransition?: boolean
-  }>(),
-  {
-    visible: true,
-    requireFocusOnMobile: false,
-    fieldFocused: false,
-    contentRevealed: true,
-    useFadeTransition: true,
-  },
-)
+  const props = withDefaults(
+    defineProps<{
+      visible?: boolean
+      requireFocusOnMobile?: boolean
+      fieldFocused?: boolean
+      contentRevealed?: boolean
+      useFadeTransition?: boolean
+    }>(),
+    {
+      visible: true,
+      requireFocusOnMobile: false,
+      fieldFocused: false,
+      contentRevealed: true,
+      useFadeTransition: true,
+    },
+  )
 
-const { recents, applyRecent } = useSiteSearch()
+  const { recents, applyRecent } = useSiteSearch()
 
-const showPanel = computed(() => props.visible && recents.value.length > 0)
+  const showPanel = computed(() => props.visible && recents.value.length > 0)
 
-function onSelect(query: string) {
-  applyRecent(query)
-}
+  function onSelect(query: string) {
+    applyRecent(query)
+  }
 </script>
 
 <style scoped lang="scss">
-@import '~/assets/scss/components/search-recent';
+  @import '~/assets/scss/components/search-recent';
 
-.search-recent-fade-enter-active,
-.search-recent-fade-leave-active {
-  transition:
-    opacity var(--transition-panel),
-    transform var(--transition-panel);
-}
+  .search-recent-fade-enter-active,
+  .search-recent-fade-leave-active {
+    transition:
+      opacity var(--transition-panel),
+      transform var(--transition-panel);
+  }
 
-.search-recent-fade-enter-from,
-.search-recent-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-6px);
-}
+  .search-recent-fade-enter-from,
+  .search-recent-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
 
-.search-recent-fade-leave-active {
-  overflow: hidden;
-}
+  .search-recent-fade-leave-active {
+    overflow: hidden;
+  }
 </style>

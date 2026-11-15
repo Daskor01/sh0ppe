@@ -5,9 +5,7 @@ export function getEffectiveDiscount(product: Product): number | undefined {
     return product.discountPercent
   }
   if (product.compareAtPrice != null && product.compareAtPrice > product.price) {
-    return Math.round(
-      ((product.compareAtPrice - product.price) / product.compareAtPrice) * 100,
-    )
+    return Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
   }
   return undefined
 }

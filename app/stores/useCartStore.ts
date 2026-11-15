@@ -10,9 +10,7 @@ export const useCartStore = defineStore('cart', () => {
   const couponApplied = ref(false)
   const couponMessage = ref('')
 
-  const totalItems = computed(() =>
-    lines.value.reduce((sum, line) => sum + line.quantity, 0),
-  )
+  const totalItems = computed(() => lines.value.reduce((sum, line) => sum + line.quantity, 0))
 
   function setQuantity(productId: string, quantity: number) {
     const line = lines.value.find((entry) => entry.productId === productId)

@@ -1,7 +1,7 @@
 import { getStaticProductReviews } from '~/data/productPages'
 import type { ProductReviewsResponse } from '~/types/productReviewApi'
-import { assertKnownProductSlug } from '../../../utils/productSlug'
-import { readStoredProductReviews } from '../../../utils/reviewStore'
+import { assertKnownProductSlug } from '#server/utils/productSlug'
+import { readStoredProductReviews } from '#server/utils/reviewStore'
 
 export default defineEventHandler(async (event): Promise<ProductReviewsResponse> => {
   const slug = assertKnownProductSlug(getRouterParam(event, 'slug'))

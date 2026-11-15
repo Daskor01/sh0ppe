@@ -32,85 +32,85 @@
 </template>
 
 <script setup lang="ts">
-import { SlidersHorizontal } from '@lucide/vue'
+  import { SlidersHorizontal } from '@lucide/vue'
 
-const filters = useShopFiltersStore()
-const { searchQuery, submitSearch } = useHeaderSearchPanel()
+  const filters = useShopFiltersStore()
+  const { searchQuery, submitSearch } = useHeaderSearchPanel()
 
-const showRecentQueries = computed(() => !searchQuery.value.trim())
+  const showRecentQueries = computed(() => !searchQuery.value.trim())
 
-const formRef = ref<HTMLElement | null>(null)
-const fieldFocused = ref(false)
+  const formRef = ref<HTMLElement | null>(null)
+  const fieldFocused = ref(false)
 
-function onSearchSubmit() {
-  submitSearch()
-}
+  function onSearchSubmit() {
+    submitSearch()
+  }
 
-function onSearchEscape() {
-  searchQuery.value = ''
-}
+  function onSearchEscape() {
+    searchQuery.value = ''
+  }
 
-function onFocusIn() {
-  fieldFocused.value = true
-}
+  function onFocusIn() {
+    fieldFocused.value = true
+  }
 
-function onFocusOut(event: FocusEvent) {
-  const root = formRef.value
-  if (!root) {
+  function onFocusOut(event: FocusEvent) {
+    const root = formRef.value
+    if (!root) {
+      fieldFocused.value = false
+      return
+    }
+    const next = event.relatedTarget
+    if (next instanceof Node && root.contains(next)) {
+      return
+    }
     fieldFocused.value = false
-    return
   }
-  const next = event.relatedTarget
-  if (next instanceof Node && root.contains(next)) {
-    return
-  }
-  fieldFocused.value = false
-}
 </script>
 
 <style scoped lang="scss">
-.shop-mobile-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-block: 0 16px;
-  border-bottom: 1px solid var(--color-border);
-
-  @include mixins.respond-to(lg) {
-    display: none;
-  }
-
-  &__search {
-    position: relative;
-    flex: 1;
-    min-width: 0;
-    z-index: 1;
-  }
-
-  &__filters {
-    display: inline-flex;
-    flex-shrink: 0;
+  .shop-mobile-toolbar {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: none;
-    border-radius: var(--radius-md);
-    color: var(--color-text);
-    background: var(--color-surface-muted);
-    cursor: pointer;
-    transition:
-      opacity var(--transition-base),
-      background var(--transition-base);
+    gap: 12px;
+    padding-block: 0 16px;
+    border-bottom: 1px solid var(--color-border);
 
-    &:hover {
-      opacity: 0.85;
+    @include mixins.respond-to(lg) {
+      display: none;
     }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
+    &__search {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      z-index: 1;
+    }
+
+    &__filters {
+      display: inline-flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: none;
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      background: var(--color-surface-muted);
+      cursor: pointer;
+      transition:
+        opacity var(--transition-base),
+        background var(--transition-base);
+
+      &:hover {
+        opacity: 0.85;
+      }
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
     }
   }
-}
 </style>

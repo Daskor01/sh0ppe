@@ -8,24 +8,23 @@
 <script setup lang="ts"></script>
 
 <style scoped lang="scss">
-.shop-sidebar {
-  @include mixins.respond-to(lg) {
-    position: sticky;
-    top: var(--shop-sidebar-sticky-top);
-    align-self: start;
-    max-height: calc(100vh - var(--shop-sidebar-sticky-top) - 24px);
-    overflow-y: auto;
-    padding-right: 4px;
-  }
+  .shop-sidebar {
+    @include mixins.respond-to(lg) {
+      position: sticky;
+      top: var(--shop-sidebar-sticky-top);
+      align-self: start;
+      max-height: calc(100vh - var(--shop-sidebar-sticky-top) - 24px);
+      overflow-y: auto;
+      padding-right: 4px;
+    }
 
-  &__title {
-    margin: 0 0 24px;
-    font-family: var(--font-serif);
-    font-size: clamp(26px, 3vw, 33px);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-text);
+    &__title {
+      margin: 0 0 24px;
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3vw, 33px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
   }
-
-}
 </style>

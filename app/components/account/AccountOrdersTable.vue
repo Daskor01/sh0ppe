@@ -17,9 +17,7 @@
           <td data-label="Status">{{ row.status }}</td>
           <td data-label="Total">{{ formatPrice(row.total) }}</td>
           <td data-label="Actions">
-            <NuxtLink :to="row.orderTo" class="account-table__action">
-              View Order
-            </NuxtLink>
+            <NuxtLink :to="row.orderTo" class="account-table__action"> View Order </NuxtLink>
           </td>
         </tr>
       </tbody>
@@ -28,21 +26,21 @@
 </template>
 
 <script setup lang="ts">
-import type { AccountOrderRow } from '~/data/accountMock'
-import { orderPath } from '~/utils/routes'
+  import type { AccountOrderRow } from '~/data/accountMock'
+  import { orderPath } from '~/utils/routes'
 
-const props = defineProps<{
-  rows: AccountOrderRow[]
-}>()
+  const props = defineProps<{
+    rows: AccountOrderRow[]
+  }>()
 
-const { formatPrice } = useFormatPrice()
+  const { formatPrice } = useFormatPrice()
 
-type AccountOrderTableRow = AccountOrderRow & { orderTo: string }
+  type AccountOrderTableRow = AccountOrderRow & { orderTo: string }
 
-const tableRows = computed<AccountOrderTableRow[]>(() =>
-  props.rows.map((row) => ({
-    ...row,
-    orderTo: orderPath(row.orderNumber),
-  })),
-)
+  const tableRows = computed<AccountOrderTableRow[]>(() =>
+    props.rows.map((row) => ({
+      ...row,
+      orderTo: orderPath(row.orderNumber),
+    })),
+  )
 </script>

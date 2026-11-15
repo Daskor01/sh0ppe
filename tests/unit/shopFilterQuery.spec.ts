@@ -88,8 +88,6 @@ describe('shopFilterQuery', () => {
 
   it('compares query objects ignoring missing keys', () => {
     expect(shopFilterQueriesEqual({ category: 'earrings' }, { category: 'earrings' })).toBe(true)
-    expect(shopFilterQueriesEqual({ category: 'earrings' }, { category: 'necklaces' })).toBe(
-      false,
-    )
+    expect(shopFilterQueriesEqual({ category: 'earrings' }, { category: 'necklaces' })).toBe(false)
   })
 })

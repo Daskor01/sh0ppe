@@ -6,11 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import HomeHeroSlider from '~/components/home/HeroSlider.vue'
-import HomeShopLatestSection from '~/components/home/ShopLatestSection.vue'
+  import HomeHeroSlider from '~/components/home/HeroSlider.vue'
+  import HomeShopLatestSection from '~/components/home/ShopLatestSection.vue'
 
-useSeoMeta({
-  title: 'SHOPPE — Shop The Latest',
-  description: 'Discover gold jewelry and accessories at SHOPPE.',
-})
+  useSeoMeta({
+    title: 'SHOPPE — Shop The Latest',
+    description: 'Discover gold jewelry and accessories at SHOPPE.',
+  })
 </script>

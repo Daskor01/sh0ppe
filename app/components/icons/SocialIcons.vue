@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  name: 'facebook' | 'instagram' | 'twitter'
-}>()
+  defineProps<{
+    name: 'facebook' | 'instagram' | 'twitter'
+  }>()
 </script>

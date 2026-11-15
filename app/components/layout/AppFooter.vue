@@ -13,9 +13,7 @@
           </NuxtLink>
         </nav>
 
-        <UiNewsletterForm
-          class="site-footer__newsletter site-footer__newsletter--desktop"
-        />
+        <UiNewsletterForm class="site-footer__newsletter site-footer__newsletter--desktop" />
       </div>
 
       <UiNewsletterForm class="site-footer__newsletter site-footer__newsletter--mobile" />
@@ -61,201 +59,201 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
+  const route = useRoute()
 
-const hideFooterTop = computed(() => route.path.startsWith('/account'))
+  const hideFooterTop = computed(() => route.path.startsWith('/account'))
 
-const footerLinks = [
-  { label: 'Contact', to: '/contact' },
-  { label: 'Terms of services', to: '/terms' },
-  { label: 'Shipping and returns', to: '/shipping' },
-]
+  const footerLinks = [
+    { label: 'Contact', to: '/contact' },
+    { label: 'Terms of services', to: '/terms' },
+    { label: 'Shipping and returns', to: '/shipping' },
+  ]
 
-const socialLinks = [
-  { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook' as const },
-  { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' as const },
-  { label: 'Twitter', href: 'https://twitter.com', icon: 'twitter' as const },
-]
+  const socialLinks = [
+    { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook' as const },
+    { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' as const },
+    { label: 'Twitter', href: 'https://twitter.com', icon: 'twitter' as const },
+  ]
 </script>
 
 <style scoped lang="scss">
-.site-footer {
-  margin-top: 48px;
-  padding-bottom: 32px;
-
-  @include mixins.respond-to(lg) {
-    margin-top: 80px;
-  }
-
-  &--account {
+  .site-footer {
     margin-top: 48px;
+    padding-bottom: 32px;
 
     @include mixins.respond-to(lg) {
-      margin-top: 64px;
+      margin-top: 80px;
     }
-  }
 
-  &__top {
-    border-top: 1px solid var(--color-border);
-    padding-top: 32px;
-
-    @include mixins.respond-to(lg) {
-      padding-top: 40px;
-    }
-  }
-
-  &__inner {
-    @include mixins.container;
-
-    &--top {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
+    &--account {
+      margin-top: 48px;
 
       @include mixins.respond-to(lg) {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 48px;
+        margin-top: 64px;
       }
     }
 
-    &--bottom {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-top: 32px;
-      padding-top: 24px;
+    &__top {
       border-top: 1px solid var(--color-border);
+      padding-top: 32px;
+
+      @include mixins.respond-to(lg) {
+        padding-top: 40px;
+      }
+    }
+
+    &__inner {
+      @include mixins.container;
+
+      &--top {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        @include mixins.respond-to(lg) {
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 48px;
+        }
+      }
+
+      &--bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid var(--color-border);
+
+        @include mixins.respond-to(lg) {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 40px;
+        }
+      }
+    }
+
+    &--account &__inner--bottom {
+      margin-top: 0;
+      padding-top: 32px;
+
+      @include mixins.respond-to(lg) {
+        margin-top: 0;
+        padding-top: 40px;
+      }
+    }
+
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
 
       @include mixins.respond-to(lg) {
         flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 40px;
+        gap: 40px;
       }
     }
-  }
 
-  &--account &__inner--bottom {
-    margin-top: 0;
-    padding-top: 32px;
+    &__link {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      transition: color var(--transition-base);
 
-    @include mixins.respond-to(lg) {
-      margin-top: 0;
-      padding-top: 40px;
+      &:hover {
+        color: var(--color-text);
+      }
     }
-  }
 
-  &__links {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    &__newsletter--mobile {
+      @include mixins.container;
+      margin-top: 32px;
 
-    @include mixins.respond-to(lg) {
-      flex-direction: row;
-      gap: 40px;
+      @include mixins.respond-to(lg) {
+        display: none;
+      }
     }
-  }
 
-  &__link {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--color-text-muted);
-    transition: color var(--transition-base);
+    &__newsletter--desktop {
+      display: none;
 
-    &:hover {
+      @include mixins.respond-to(lg) {
+        display: block;
+      }
+    }
+
+    &__copy {
+      margin: 0;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      order: 2;
+
+      @include mixins.respond-to(lg) {
+        order: 0;
+      }
+    }
+
+    &__social-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      @include mixins.respond-to(lg) {
+        display: none;
+      }
+    }
+
+    &__follow {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    &__social {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      &--desktop {
+        display: none;
+
+        @include mixins.respond-to(lg) {
+          display: flex;
+        }
+      }
+    }
+
+    &__social-link {
+      display: inline-flex;
       color: var(--color-text);
-    }
-  }
+      opacity: 0.85;
+      transition: opacity var(--transition-base);
 
-  &__newsletter--mobile {
-    @include mixins.container;
-    margin-top: 32px;
+      :deep(svg) {
+        width: 24px;
+        height: 24px;
 
-    @include mixins.respond-to(lg) {
-      display: none;
-    }
-  }
+        @include mixins.respond-to(lg) {
+          width: 26px;
+          height: 26px;
+        }
+      }
 
-  &__newsletter--desktop {
-    display: none;
+      &:hover {
+        opacity: 1;
+      }
 
-    @include mixins.respond-to(lg) {
-      display: block;
-    }
-  }
-
-  &__copy {
-    margin: 0;
-    font-size: 12px;
-    color: var(--color-text-muted);
-    order: 2;
-
-    @include mixins.respond-to(lg) {
-      order: 0;
-    }
-  }
-
-  &__social-block {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    @include mixins.respond-to(lg) {
-      display: none;
-    }
-  }
-
-  &__follow {
-    margin: 0;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-
-  &__social {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    &--desktop {
-      display: none;
-
-      @include mixins.respond-to(lg) {
-        display: flex;
+      &:focus-visible {
+        @include mixins.focus-ring;
       }
     }
   }
-
-  &__social-link {
-    display: inline-flex;
-    color: var(--color-text);
-    opacity: 0.85;
-    transition: opacity var(--transition-base);
-
-    :deep(svg) {
-      width: 24px;
-      height: 24px;
-
-      @include mixins.respond-to(lg) {
-        width: 26px;
-        height: 26px;
-      }
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-  }
-}
 </style>

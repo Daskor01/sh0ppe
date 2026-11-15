@@ -8,10 +8,7 @@ export function isAccountSignedIn(event: H3Event): boolean {
   return getCookie(event, ACCOUNT_SIGNED_IN_COOKIE) === '1'
 }
 
-export function resolveReviewAuthor(
-  event: H3Event,
-  payload: CreateProductReviewBody,
-): string {
+export function resolveReviewAuthor(event: H3Event, payload: CreateProductReviewBody): string {
   if (isAccountSignedIn(event)) {
     return ACCOUNT_MOCK_DISPLAY_NAME
   }

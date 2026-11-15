@@ -1,4 +1,9 @@
-import type { Product, ProductGalleryImage, ProductPageContent, ProductReview } from '~/types/product'
+import type {
+  Product,
+  ProductGalleryImage,
+  ProductPageContent,
+  ProductReview,
+} from '~/types/product'
 import { shopProducts } from '~/data/shop'
 
 const LOREM_SHORT =
@@ -95,9 +100,7 @@ const productReviews: Partial<Record<string, ProductReview[]>> = {
   ],
 }
 
-const pageOverrides: Partial<
-  Record<string, Pick<ProductPageContent, 'sku' | 'rating'>>
-> = {
+const pageOverrides: Partial<Record<string, Pick<ProductPageContent, 'sku' | 'rating'>>> = {
   'lira-earrings': { sku: '12', rating: 5 },
   'hal-earrings': { sku: '18', rating: 5 },
 }

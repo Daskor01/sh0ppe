@@ -39,105 +39,108 @@
 </template>
 
 <script setup lang="ts">
-import { X } from '@lucide/vue'
-import ProductReviewForm from '~/components/product/ProductReviewForm.vue'
+  import { X } from '@lucide/vue'
+  import ProductReviewForm from '~/components/product/ProductReviewForm.vue'
 
-const props = defineProps<{
-  open: boolean
-  productSlug: string
-}>()
+  const props = defineProps<{
+    open: boolean
+    productSlug: string
+  }>()
 
-const emit = defineEmits<{
-  close: []
-  submitted: []
-}>()
+  const emit = defineEmits<{
+    close: []
+    submitted: []
+  }>()
 
-useBodyScrollLock(() => props.open)
+  useBodyScrollLock(() => props.open)
 
-useDismissOnEscape(() => props.open, () => emit('close'))
+  useDismissOnEscape(
+    () => props.open,
+    () => emit('close'),
+  )
 
-function onSubmitted() {
-  emit('submitted')
-  emit('close')
-}
+  function onSubmitted() {
+    emit('submitted')
+    emit('close')
+  }
 </script>
 
 <style scoped lang="scss">
-.product-reviews-dialog {
-  position: fixed;
-  inset: auto 0 0;
-  z-index: var(--z-drawer);
-  width: 100%;
-  max-height: min(92vh, 640px);
-  display: flex;
-  flex-direction: column;
-  overscroll-behavior: contain;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  box-shadow: 0 -8px 32px rgb(0 0 0 / 12%);
-
-  &__backdrop {
+  .product-reviews-dialog {
     position: fixed;
-    inset: 0;
-    z-index: var(--z-overlay);
-    background: rgb(0 0 0 / 35%);
-    touch-action: none;
-  }
-
-  &__head {
+    inset: auto 0 0;
+    z-index: var(--z-drawer);
+    width: 100%;
+    max-height: min(92vh, 640px);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-shrink: 0;
-    padding: 20px var(--gutter-mobile) 12px;
-    border-bottom: 1px solid var(--color-border);
-  }
+    flex-direction: column;
+    overscroll-behavior: contain;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -8px 32px rgb(0 0 0 / 12%);
 
-  &__title {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color-text);
-  }
+    &__backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-overlay);
+      background: rgb(0 0 0 / 35%);
+      touch-action: none;
+    }
 
-  &__close {
-    display: inline-flex;
-    padding: 4px;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    cursor: pointer;
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+      padding: 20px var(--gutter-mobile) 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
+    &__title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    &__close {
+      display: inline-flex;
+      padding: 4px;
+      border: none;
+      background: transparent;
+      color: var(--color-text);
+      cursor: pointer;
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
+    }
+
+    &__body {
+      flex: 1;
+      padding: 20px var(--gutter-mobile) 28px;
+      overflow-y: auto;
     }
   }
 
-  &__body {
-    flex: 1;
-    padding: 20px var(--gutter-mobile) 28px;
-    overflow-y: auto;
+  .overlay-fade-enter-active,
+  .overlay-fade-leave-active {
+    transition: opacity var(--transition-overlay);
   }
-}
 
-.overlay-fade-enter-active,
-.overlay-fade-leave-active {
-  transition: opacity var(--transition-overlay);
-}
+  .overlay-fade-enter-from,
+  .overlay-fade-leave-to {
+    opacity: 0;
+  }
 
-.overlay-fade-enter-from,
-.overlay-fade-leave-to {
-  opacity: 0;
-}
+  .product-reviews-slide-enter-active,
+  .product-reviews-slide-leave-active {
+    transition: transform var(--transition-drawer);
+  }
 
-.product-reviews-slide-enter-active,
-.product-reviews-slide-leave-active {
-  transition: transform var(--transition-drawer);
-}
-
-.product-reviews-slide-enter-from,
-.product-reviews-slide-leave-to {
-  transform: translateY(100%);
-}
+  .product-reviews-slide-enter-from,
+  .product-reviews-slide-leave-to {
+    transform: translateY(100%);
+  }
 </style>

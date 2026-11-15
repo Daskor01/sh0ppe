@@ -4,7 +4,15 @@ import { SHOP_PRICE_MAX, SHOP_PRICE_MIN } from '~/data/shop'
 
 export type ShopCategoryFilter = ProductCategory | 'all'
 
-export const SHOP_FILTER_QUERY_KEYS = ['q', 'category', 'sort', 'min', 'max', 'sale', 'stock'] as const
+export const SHOP_FILTER_QUERY_KEYS = [
+  'q',
+  'category',
+  'sort',
+  'min',
+  'max',
+  'sale',
+  'stock',
+] as const
 
 export type ShopFiltersShareState = {
   search: string
@@ -19,7 +27,9 @@ export type ShopFiltersShareState = {
 const CATEGORIES: ProductCategory[] = ['earrings', 'hair-pins', 'necklaces']
 const SORT_OPTIONS: ShopSortOption[] = ['featured', 'price-asc', 'price-desc', 'name']
 
-function firstQueryValue(value: LocationQueryValue | LocationQueryValue[] | undefined): string | undefined {
+function firstQueryValue(
+  value: LocationQueryValue | LocationQueryValue[] | undefined,
+): string | undefined {
   if (value == null) {
     return undefined
   }

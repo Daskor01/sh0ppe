@@ -5,11 +5,11 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  middleware: 'account-protected',
-})
+  definePageMeta({
+    middleware: 'account-protected',
+  })
 
-useSeoMeta({
-  title: 'Account details — SHOPPE',
-})
+  useSeoMeta({
+    title: 'Account details — SHOPPE',
+  })
 </script>

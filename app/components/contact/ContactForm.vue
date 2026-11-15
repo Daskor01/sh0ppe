@@ -60,128 +60,128 @@
 </template>
 
 <script setup lang="ts">
-import type { BaseSelectOption } from '~/types/ui'
+  import type { BaseSelectOption } from '~/types/ui'
 
-type ContactSubject = '' | 'orders' | 'products' | 'shipping' | 'other'
+  type ContactSubject = '' | 'orders' | 'products' | 'shipping' | 'other'
 
-const firstName = ref('')
-const lastName = ref('')
-const email = ref('')
-const subject = ref<ContactSubject>('')
-const message = ref('')
-const formError = ref('')
+  const firstName = ref('')
+  const lastName = ref('')
+  const email = ref('')
+  const subject = ref<ContactSubject>('')
+  const message = ref('')
+  const formError = ref('')
 
-const subjectOptions: BaseSelectOption<ContactSubject>[] = [
-  { value: '', label: 'Subject' },
-  { value: 'orders', label: 'Orders' },
-  { value: 'products', label: 'Products' },
-  { value: 'shipping', label: 'Shipping & returns' },
-  { value: 'other', label: 'Other' },
-]
+  const subjectOptions: BaseSelectOption<ContactSubject>[] = [
+    { value: '', label: 'Subject' },
+    { value: 'orders', label: 'Orders' },
+    { value: 'products', label: 'Products' },
+    { value: 'shipping', label: 'Shipping & returns' },
+    { value: 'other', label: 'Other' },
+  ]
 
-function resetForm() {
-  firstName.value = ''
-  lastName.value = ''
-  email.value = ''
-  subject.value = ''
-  message.value = ''
-}
-
-function submit() {
-  formError.value = ''
-
-  if (!firstName.value.trim() || !lastName.value.trim()) {
-    formError.value = 'Please enter your first and last name.'
-    return
+  function resetForm() {
+    firstName.value = ''
+    lastName.value = ''
+    email.value = ''
+    subject.value = ''
+    message.value = ''
   }
 
-  if (!email.value.trim()) {
-    formError.value = 'Please enter your email.'
-    return
-  }
+  function submit() {
+    formError.value = ''
 
-  if (!subject.value) {
-    formError.value = 'Please choose a subject.'
-    return
-  }
+    if (!firstName.value.trim() || !lastName.value.trim()) {
+      formError.value = 'Please enter your first and last name.'
+      return
+    }
 
-  if (!message.value.trim()) {
-    formError.value = 'Please enter a message.'
-    return
-  }
+    if (!email.value.trim()) {
+      formError.value = 'Please enter your email.'
+      return
+    }
 
-  useToastStore().show({
-    message: 'Thank you! Your message has been sent.',
-  })
-  resetForm()
-}
+    if (!subject.value) {
+      formError.value = 'Please choose a subject.'
+      return
+    }
+
+    if (!message.value.trim()) {
+      formError.value = 'Please enter a message.'
+      return
+    }
+
+    useToastStore().show({
+      message: 'Thank you! Your message has been sent.',
+    })
+    resetForm()
+  }
 </script>
 
 <style scoped lang="scss">
-.contact-form {
-  width: 100%;
+  .contact-form {
+    width: 100%;
 
-  &__intro {
-    display: none;
-    margin: 0 0 32px;
-    max-width: 520px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-
-    @include mixins.respond-to(lg) {
-      display: block;
-      margin-inline: auto;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-  }
-
-  &__row {
-    margin-bottom: 28px;
-
-    &--split {
-      display: grid;
-      gap: 28px;
+    &__intro {
+      display: none;
+      margin: 0 0 32px;
+      max-width: 520px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
 
       @include mixins.respond-to(lg) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 32px 40px;
+        display: block;
+        margin-inline: auto;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+    }
+
+    &__row {
+      margin-bottom: 28px;
+
+      &--split {
+        display: grid;
+        gap: 28px;
+
+        @include mixins.respond-to(lg) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 32px 40px;
+        }
+      }
+    }
+
+    &__subject {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    &__subject-label {
+      font-size: 14px;
+      line-height: 1.3;
+      color: var(--color-text-muted);
+    }
+
+    &__message {
+      margin-bottom: 32px;
+    }
+
+    &__error {
+      margin: 0 0 16px;
+      font-size: 14px;
+      color: var(--color-error);
+      text-align: center;
+    }
+
+    &__submit {
+      max-width: 100%;
+
+      @include mixins.respond-to(lg) {
+        max-width: 360px;
+        margin-inline: auto;
       }
     }
   }
-
-  &__subject {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 0;
-  }
-
-  &__subject-label {
-    font-size: 14px;
-    line-height: 1.3;
-    color: var(--color-text-muted);
-  }
-
-  &__message {
-    margin-bottom: 32px;
-  }
-
-  &__error {
-    margin: 0 0 16px;
-    font-size: 14px;
-    color: var(--color-error);
-    text-align: center;
-  }
-
-  &__submit {
-    max-width: 100%;
-
-    @include mixins.respond-to(lg) {
-      max-width: 360px;
-      margin-inline: auto;
-    }
-  }
-}
 </style>

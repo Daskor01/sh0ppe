@@ -37,82 +37,82 @@
 </template>
 
 <script setup lang="ts">
-const { subtotal, discount, total, formatPrice } = useCartSummary()
+  const { subtotal, discount, total, formatPrice } = useCartSummary()
 </script>
 
 <style scoped lang="scss">
-.cart-totals {
-  padding: 24px var(--gutter-mobile);
-  background: var(--color-surface-muted);
+  .cart-totals {
+    padding: 24px var(--gutter-mobile);
+    background: var(--color-surface-muted);
 
-  @include mixins.respond-to(lg) {
-    padding: 28px 24px 32px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-  }
+    @include mixins.respond-to(lg) {
+      padding: 28px 24px 32px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+    }
 
-  &__title {
-    margin: 0 0 20px;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  &__rows {
-    margin: 0 0 24px;
-  }
-
-  &__row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-
-    dt {
-      margin: 0;
+    &__title {
+      margin: 0 0 20px;
+      font-size: 18px;
       font-weight: 500;
       color: var(--color-text);
     }
 
-    dd {
-      margin: 0;
-      font-weight: 400;
-      color: var(--color-text);
+    &__rows {
+      margin: 0 0 24px;
     }
 
-    &--shipping {
-      flex-direction: column;
-      align-items: stretch;
-      text-transform: none;
-      letter-spacing: normal;
-    }
+    &__row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
 
-    &--total {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--color-border);
-      font-size: 16px;
+      dt {
+        margin: 0;
+        font-weight: 500;
+        color: var(--color-text);
+      }
 
       dd {
-        font-weight: 600;
+        margin: 0;
+        font-weight: 400;
+        color: var(--color-text);
+      }
+
+      &--shipping {
+        flex-direction: column;
+        align-items: stretch;
+        text-transform: none;
+        letter-spacing: normal;
+      }
+
+      &--total {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border);
+        font-size: 16px;
+
+        dd {
+          font-weight: 600;
+        }
       }
     }
-  }
 
-  &__shipping-note {
-    margin-top: 8px !important;
-    font-size: 13px !important;
-    line-height: 1.5;
-    color: var(--color-text-muted) !important;
-    text-transform: none;
-  }
+    &__shipping-note {
+      margin-top: 8px !important;
+      font-size: 13px !important;
+      line-height: 1.5;
+      color: var(--color-text-muted) !important;
+      text-transform: none;
+    }
 
-  &__checkout {
-    margin-top: 8px;
+    &__checkout {
+      margin-top: 8px;
+    }
   }
-}
 </style>

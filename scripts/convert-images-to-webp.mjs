@@ -53,9 +53,7 @@ for (const srcPath of rasterFiles) {
   console.log(`images:webp — ${relative(root, srcPath)} → ${relative(root, destPath)}`)
 }
 
-const codeFiles = codeRoots.flatMap((dir) =>
-  walkFiles(dir, (p) => /\.(ts|vue)$/.test(p)),
-)
+const codeFiles = codeRoots.flatMap((dir) => walkFiles(dir, (p) => /\.(ts|vue)$/.test(p)))
 
 let filesUpdated = 0
 for (const file of codeFiles) {

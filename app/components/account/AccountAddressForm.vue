@@ -100,74 +100,73 @@
 </template>
 
 <script setup lang="ts">
-import { ACCOUNT_PROFILE_READONLY } from '~/data/accountMock'
-import type { CheckoutBilling } from '~/types/order'
-import type { BaseSelectOption } from '~/types/ui'
+  import { ACCOUNT_PROFILE_READONLY } from '~/data/accountMock'
+  import type { CheckoutBilling } from '~/types/order'
+  import type { BaseSelectOption } from '~/types/ui'
 
-const billing = defineModel<CheckoutBilling>({ required: true })
+  const billing = defineModel<CheckoutBilling>({ required: true })
 
-defineProps<{
-  formId: string
-  title: string
-}>()
+  defineProps<{
+    formId: string
+    title: string
+  }>()
 
-const emit = defineEmits<{
-  save: []
-}>()
+  const emit = defineEmits<{
+    save: []
+  }>()
 
-const countryOptions: BaseSelectOption<string>[] = [
-  { value: '', label: 'Country *' },
-  { value: 'GB', label: 'United Kingdom' },
-  { value: 'US', label: 'United States' },
-  { value: 'DE', label: 'Germany' },
-  { value: 'FR', label: 'France' },
-]
-
+  const countryOptions: BaseSelectOption<string>[] = [
+    { value: '', label: 'Country *' },
+    { value: 'GB', label: 'United Kingdom' },
+    { value: 'US', label: 'United States' },
+    { value: 'DE', label: 'Germany' },
+    { value: 'FR', label: 'France' },
+  ]
 </script>
 
 <style scoped lang="scss">
-.account-address-form {
-  &__title {
-    margin: 0 0 24px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.3;
-    color: var(--color-text);
-  }
+  .account-address-form {
+    &__title {
+      margin: 0 0 24px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--color-text);
+    }
 
-  &__body {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-  &__grid {
-    display: grid;
-    gap: 24px;
+    &__grid {
+      display: grid;
+      gap: 24px;
 
-    @include mixins.respond-to(md) {
-      grid-template-columns: 1fr 1fr;
+      @include mixins.respond-to(md) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    &__field {
+      width: 100%;
+    }
+
+    &__country {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__country-label {
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+
+    &__submit {
+      margin-top: 8px;
+      max-width: 280px;
     }
   }
-
-  &__field {
-    width: 100%;
-  }
-
-  &__country {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  &__country-label {
-    font-size: 14px;
-    color: var(--color-text-muted);
-  }
-
-  &__submit {
-    margin-top: 8px;
-    max-width: 280px;
-  }
-}
 </style>

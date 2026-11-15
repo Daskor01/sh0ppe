@@ -25,24 +25,24 @@
 </template>
 
 <script setup lang="ts">
-import { RECENT_SEARCHES_MOBILE_VISIBLE } from '~/utils/recentSearches'
+  import { RECENT_SEARCHES_MOBILE_VISIBLE } from '~/utils/recentSearches'
 
-defineProps<{
-  recents: string[]
-  requireFocusOnMobile?: boolean
-  fieldFocused?: boolean
-  contentRevealed?: boolean
-}>()
+  defineProps<{
+    recents: string[]
+    requireFocusOnMobile?: boolean
+    fieldFocused?: boolean
+    contentRevealed?: boolean
+  }>()
 
-const emit = defineEmits<{
-  select: [query: string]
-}>()
+  const emit = defineEmits<{
+    select: [query: string]
+  }>()
 
-function isDesktopOnlyRecent(index: number) {
-  return index >= RECENT_SEARCHES_MOBILE_VISIBLE
-}
+  function isDesktopOnlyRecent(index: number) {
+    return index >= RECENT_SEARCHES_MOBILE_VISIBLE
+  }
 </script>
 
 <style scoped lang="scss">
-@import '~/assets/scss/components/search-recent';
+  @import '~/assets/scss/components/search-recent';
 </style>

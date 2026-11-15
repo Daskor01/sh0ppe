@@ -21,80 +21,78 @@
 </template>
 
 <script setup lang="ts">
-import { Star } from '@lucide/vue'
+  import { Star } from '@lucide/vue'
 
-const props = withDefaults(
-  defineProps<{
-    rating?: number
-    interactive?: boolean
-    size?: 'sm' | 'md'
-  }>(),
-  {
-    rating: 0,
-    interactive: false,
-    size: 'sm',
-  },
-)
+  const props = withDefaults(
+    defineProps<{
+      rating?: number
+      interactive?: boolean
+      size?: 'sm' | 'md'
+    }>(),
+    {
+      rating: 0,
+      interactive: false,
+      size: 'sm',
+    },
+  )
 
-const ratingModel = defineModel<number>('rating', { default: 0 })
+  const ratingModel = defineModel<number>('rating', { default: 0 })
 
-const starSize = computed(() => (props.size === 'md' ? 18 : 16))
+  const starSize = computed(() => (props.size === 'md' ? 18 : 16))
 
-const displayRating = computed(() =>
-  props.interactive ? ratingModel.value : props.rating,
-)
+  const displayRating = computed(() => (props.interactive ? ratingModel.value : props.rating))
 
-const stars = computed(() =>
-  Array.from({ length: 5 }, (_, index) => index < Math.round(displayRating.value)),
-)
+  const stars = computed(() =>
+    Array.from({ length: 5 }, (_, index) => index < Math.round(displayRating.value)),
+  )
 
-const rootClass = computed(() => ({
-  'product-review-stars--interactive': props.interactive,
-}))
+  const rootClass = computed(() => ({
+    'product-review-stars--interactive': props.interactive,
+  }))
 
-function onSelect(value: number) {
-  if (!props.interactive) {
-    return
+  function onSelect(value: number) {
+    if (!props.interactive) {
+      return
+    }
+    ratingModel.value = value
   }
-  ratingModel.value = value
-}
 </script>
 
 <style scoped lang="scss">
-.product-review-stars {
-  display: inline-flex;
-  gap: 2px;
-  color: var(--color-border);
-
-  &__star {
+  .product-review-stars {
     display: inline-flex;
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: inherit;
-    cursor: default;
+    gap: 2px;
+    color: var(--color-border);
 
-    &--filled {
-      color: var(--color-text);
+    &__star {
+      display: inline-flex;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      cursor: default;
 
-      :deep(svg) {
-        fill: var(--color-text);
+      &--filled {
+        color: var(--color-text);
+
+        :deep(svg) {
+          fill: var(--color-text);
+        }
+      }
+    }
+
+    &--interactive &__star {
+      cursor: pointer;
+      transition: color var(--transition-base);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-text-muted);
+      }
+
+      &:focus-visible {
+        @include mixins.focus-ring;
       }
     }
   }
-
-  &--interactive &__star {
-    cursor: pointer;
-    transition: color var(--transition-base);
-
-    &:hover,
-    &:focus-visible {
-      color: var(--color-text-muted);
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-  }
-}
 </style>

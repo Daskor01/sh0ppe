@@ -1,11 +1,5 @@
-import {
-  ACCOUNT_MOCK_DISPLAY_NAME,
-  ACCOUNT_MOCK_EMAIL,
-} from '~/data/accountMock'
-import {
-  ACCOUNT_SESSION_STORAGE_KEY,
-  ACCOUNT_SIGNED_IN_COOKIE,
-} from '~/constants/session'
+import { ACCOUNT_MOCK_DISPLAY_NAME, ACCOUNT_MOCK_EMAIL } from '~/data/accountMock'
+import { ACCOUNT_SESSION_STORAGE_KEY, ACCOUNT_SIGNED_IN_COOKIE } from '~/constants/session'
 
 function writeSignedInToSessionStorage(signedIn: boolean) {
   if (!import.meta.client) {

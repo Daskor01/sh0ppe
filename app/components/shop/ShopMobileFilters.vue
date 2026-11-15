@@ -36,99 +36,102 @@
 </template>
 
 <script setup lang="ts">
-import { X } from '@lucide/vue'
+  import { X } from '@lucide/vue'
 
-const filters = useShopFiltersStore()
+  const filters = useShopFiltersStore()
 
-watch(
-  () => filters.mobilePanelOpen,
-  (open) => {
-    if (!import.meta.client) {
-      return
+  watch(
+    () => filters.mobilePanelOpen,
+    (open) => {
+      if (!import.meta.client) {
+        return
+      }
+      document.body.style.overflow = open ? 'hidden' : ''
+    },
+  )
+
+  onUnmounted(() => {
+    if (import.meta.client) {
+      document.body.style.overflow = ''
     }
-    document.body.style.overflow = open ? 'hidden' : ''
-  },
-)
+  })
 
-onUnmounted(() => {
-  if (import.meta.client) {
-    document.body.style.overflow = ''
-  }
-})
-
-useDismissOnEscape(() => filters.mobilePanelOpen, () => filters.closeMobilePanel())
+  useDismissOnEscape(
+    () => filters.mobilePanelOpen,
+    () => filters.closeMobilePanel(),
+  )
 </script>
 
 <style scoped lang="scss">
-.shop-mobile-filters {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-drawer);
-  display: flex;
-  flex-direction: column;
-  padding: 24px var(--gutter-mobile) 32px;
-  overflow-y: auto;
-  background: var(--color-surface);
-
-  &__backdrop {
+  .shop-mobile-filters {
     position: fixed;
     inset: 0;
-    z-index: var(--z-overlay);
-    background: rgb(0 0 0 / 35%);
-  }
-
-  &__head {
+    z-index: var(--z-drawer);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-  }
+    flex-direction: column;
+    padding: 24px var(--gutter-mobile) 32px;
+    overflow-y: auto;
+    background: var(--color-surface);
 
-  &__title {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--color-text);
-  }
+    &__backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-overlay);
+      background: rgb(0 0 0 / 35%);
+    }
 
-  &__close {
-    display: inline-flex;
-    padding: 4px;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    cursor: pointer;
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
+    &__title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    &__close {
+      display: inline-flex;
+      padding: 4px;
+      border: none;
+      background: transparent;
+      color: var(--color-text);
+      cursor: pointer;
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
+    }
+
+    &__body {
+      flex: 1;
     }
   }
 
-  &__body {
-    flex: 1;
+  .overlay-fade-enter-active,
+  .overlay-fade-leave-active {
+    transition: opacity var(--transition-overlay);
   }
-}
 
-.overlay-fade-enter-active,
-.overlay-fade-leave-active {
-  transition: opacity var(--transition-overlay);
-}
+  .overlay-fade-enter-from,
+  .overlay-fade-leave-to {
+    opacity: 0;
+  }
 
-.overlay-fade-enter-from,
-.overlay-fade-leave-to {
-  opacity: 0;
-}
+  .shop-filters-slide-enter-active,
+  .shop-filters-slide-leave-active {
+    transition:
+      transform var(--transition-drawer),
+      opacity var(--transition-panel);
+  }
 
-.shop-filters-slide-enter-active,
-.shop-filters-slide-leave-active {
-  transition:
-    transform var(--transition-drawer),
-    opacity var(--transition-panel);
-}
-
-.shop-filters-slide-enter-from,
-.shop-filters-slide-leave-to {
-  opacity: 0;
-  transform: translateY(12px);
-}
+  .shop-filters-slide-enter-from,
+  .shop-filters-slide-leave-to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 </style>

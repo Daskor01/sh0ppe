@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const useNetlifyPreset =
-  process.env.NITRO_PRESET === 'netlify' || process.env.NETLIFY === 'true'
+const useNetlifyPreset = process.env.NITRO_PRESET === 'netlify' || process.env.NETLIFY === 'true'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',

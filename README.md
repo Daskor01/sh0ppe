@@ -17,14 +17,14 @@ npm run dev
 
 ## Скрипты
 
-| Команда | Зачем |
-| -------- | ----- |
-| `npm run dev` | Разработка |
-| `npm run build` | Production (перед билдом — WebP для картинок в `public/images`) |
-| `npm run preview` | Локальный просмотр сборки |
-| `npm run typecheck` | Проверка типов |
-| `npm run lint` / `format:check` | ESLint / Prettier |
-| `npm run test` | Юнит-тесты |
+| Команда                         | Зачем                                                           |
+| ------------------------------- | --------------------------------------------------------------- |
+| `npm run dev`                   | Разработка                                                      |
+| `npm run build`                 | Production (перед билдом — WebP для картинок в `public/images`) |
+| `npm run preview`               | Локальный просмотр сборки                                       |
+| `npm run typecheck`             | Проверка типов                                                  |
+| `npm run lint` / `format:check` | ESLint / Prettier                                               |
+| `npm run test`                  | Юнит-тесты                                                      |
 
 ## Деплой (Netlify)
 

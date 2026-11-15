@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="search-field"
-    :class="rootClass"
-  >
+  <div class="search-field" :class="rootClass">
     <Search
       v-if="showStartIcon"
       class="search-field__icon search-field__icon--search"
@@ -46,137 +43,137 @@
 </template>
 
 <script setup lang="ts">
-import { Search, X } from '@lucide/vue'
+  import { Search, X } from '@lucide/vue'
 
-const model = defineModel<string>({ default: '' })
+  const model = defineModel<string>({ default: '' })
 
-const emit = defineEmits<{
-  escape: []
-  submit: []
-}>()
+  const emit = defineEmits<{
+    escape: []
+    submit: []
+  }>()
 
-const props = withDefaults(
-  defineProps<{
-    placeholder?: string
-    id?: string
-    clearable?: boolean
-    variant?: 'filled' | 'underline'
-    iconPosition?: 'start' | 'end'
-  }>(),
-  {
-    placeholder: 'Search',
-    id: 'site-search',
-    clearable: true,
-    variant: 'filled',
-    iconPosition: 'start',
-  },
-)
+  const props = withDefaults(
+    defineProps<{
+      placeholder?: string
+      id?: string
+      clearable?: boolean
+      variant?: 'filled' | 'underline'
+      iconPosition?: 'start' | 'end'
+    }>(),
+    {
+      placeholder: 'Search',
+      id: 'site-search',
+      clearable: true,
+      variant: 'filled',
+      iconPosition: 'start',
+    },
+  )
 
-const showClear = computed(() => props.clearable && model.value.length > 0)
+  const showClear = computed(() => props.clearable && model.value.length > 0)
 
-const rootClass = computed(() => [
-  `search-field--${props.variant}`,
-  { 'search-field--icon-end': props.iconPosition === 'end' },
-])
+  const rootClass = computed(() => [
+    `search-field--${props.variant}`,
+    { 'search-field--icon-end': props.iconPosition === 'end' },
+  ])
 
-const showStartIcon = computed(() => props.iconPosition === 'start')
-const showEndIcon = computed(() => props.iconPosition === 'end')
+  const showStartIcon = computed(() => props.iconPosition === 'start')
+  const showEndIcon = computed(() => props.iconPosition === 'end')
 
-const inputRef = ref<HTMLInputElement | null>(null)
+  const inputRef = ref<HTMLInputElement | null>(null)
 
-function clearInput() {
-  model.value = ''
-}
+  function clearInput() {
+    model.value = ''
+  }
 
-function focusInput() {
-  inputRef.value?.focus()
-}
+  function focusInput() {
+    inputRef.value?.focus()
+  }
 
-defineExpose({
-  focus: focusInput,
-})
+  defineExpose({
+    focus: focusInput,
+  })
 </script>
 
 <style scoped lang="scss">
-.search-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-
-  &__label {
-    flex: 1;
-    min-width: 0;
-  }
-
-  &__input {
-    display: block;
+  .search-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    font-family: var(--font-sans);
-    @include mixins.field-text-size;
-    color: var(--color-text);
 
-    &::placeholder {
+    &__label {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__input {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      font-family: var(--font-sans);
+      @include mixins.field-text-size;
+      color: var(--color-text);
+
+      &::placeholder {
+        color: var(--color-text-muted);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &__icon {
+      flex-shrink: 0;
       color: var(--color-text-muted);
     }
 
-    &:focus {
-      outline: none;
+    &__clear {
+      display: inline-flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      color: var(--color-text-muted);
+      background: transparent;
+      cursor: pointer;
+      transition:
+        color var(--transition-base),
+        background var(--transition-base);
+
+      &:hover {
+        color: var(--color-text);
+        background: rgb(0 0 0 / 6%);
+      }
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
+    }
+
+    &--filled {
+      padding: 12px 16px;
+      background: var(--color-surface-muted);
+      border-radius: var(--radius-md);
+    }
+
+    &--underline {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    &--icon-end {
+      gap: 8px;
     }
   }
 
-  &__icon {
-    flex-shrink: 0;
-    color: var(--color-text-muted);
+  .visually-hidden {
+    @include mixins.visually-hidden;
   }
-
-  &__clear {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    color: var(--color-text-muted);
-    background: transparent;
-    cursor: pointer;
-    transition:
-      color var(--transition-base),
-      background var(--transition-base);
-
-    &:hover {
-      color: var(--color-text);
-      background: rgb(0 0 0 / 6%);
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-  }
-
-  &--filled {
-    padding: 12px 16px;
-    background: var(--color-surface-muted);
-    border-radius: var(--radius-md);
-  }
-
-  &--underline {
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  &--icon-end {
-    gap: 8px;
-  }
-}
-
-.visually-hidden {
-  @include mixins.visually-hidden;
-}
 </style>

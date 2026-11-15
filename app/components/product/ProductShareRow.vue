@@ -22,47 +22,47 @@
 </template>
 
 <script setup lang="ts">
-import { Mail } from '@lucide/vue'
+  import { Mail } from '@lucide/vue'
 
-defineProps<{
-  productId: string
-  productName: string
-}>()
+  defineProps<{
+    productId: string
+    productName: string
+  }>()
 </script>
 
 <style scoped lang="scss">
-.product-share {
-  display: none;
-  align-items: center;
-  gap: 16px;
+  .product-share {
+    display: none;
+    align-items: center;
+    gap: 16px;
 
-  @include mixins.respond-to(lg) {
-    display: flex;
-  }
-
-  &__wishlist {
-    flex-shrink: 0;
-  }
-
-  &__divider {
-    width: 1px;
-    height: 20px;
-    background: var(--color-border);
-  }
-
-  &__link {
-    display: inline-flex;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color var(--transition-base);
-
-    &:hover {
-      color: var(--color-text);
+    @include mixins.respond-to(lg) {
+      display: flex;
     }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
+    &__wishlist {
+      flex-shrink: 0;
+    }
+
+    &__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--color-border);
+    }
+
+    &__link {
+      display: inline-flex;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-base);
+
+      &:hover {
+        color: var(--color-text);
+      }
+
+      &:focus-visible {
+        @include mixins.focus-ring;
+      }
     }
   }
-}
 </style>

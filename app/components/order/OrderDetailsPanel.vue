@@ -36,75 +36,75 @@
 </template>
 
 <script setup lang="ts">
-import type { PlacedOrder } from '~/types/order'
+  import type { PlacedOrder } from '~/types/order'
 
-defineProps<{
-  order: PlacedOrder
-}>()
+  defineProps<{
+    order: PlacedOrder
+  }>()
 
-function formatOrderDate(iso: string): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(iso))
-}
+  function formatOrderDate(iso: string): string {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    }).format(new Date(iso))
+  }
 </script>
 
 <style scoped lang="scss">
-.order-details {
-  padding: 24px 20px;
-  background: var(--color-surface-muted);
-
-  @include mixins.respond-to(lg) {
-    padding: 28px 24px 32px;
-    background: transparent;
-    border: none;
-    padding-inline: 0;
-  }
-
-  &__title {
-    margin: 0 0 20px;
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-  &__grid {
-    margin: 0;
-    display: grid;
-    gap: 16px;
+  .order-details {
+    padding: 24px 20px;
+    background: var(--color-surface-muted);
 
     @include mixins.respond-to(lg) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px 48px;
+      padding: 28px 24px 32px;
+      background: transparent;
+      border: none;
+      padding-inline: 0;
+    }
+
+    &__title {
+      margin: 0 0 20px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    &__grid {
+      margin: 0;
+      display: grid;
+      gap: 16px;
+
+      @include mixins.respond-to(lg) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 48px;
+      }
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: minmax(120px, 140px) minmax(0, 1fr);
+      gap: 12px 16px;
+      font-size: 14px;
+
+      @include mixins.respond-to(lg) {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      dt {
+        margin: 0;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 12px;
+        color: var(--color-text);
+      }
+
+      dd {
+        margin: 0;
+        line-height: 1.5;
+        color: var(--color-text-muted);
+      }
     }
   }
-
-  &__row {
-    display: grid;
-    grid-template-columns: minmax(120px, 140px) minmax(0, 1fr);
-    gap: 12px 16px;
-    font-size: 14px;
-
-    @include mixins.respond-to(lg) {
-      grid-template-columns: 1fr;
-      gap: 6px;
-    }
-
-    dt {
-      margin: 0;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-size: 12px;
-      color: var(--color-text);
-    }
-
-    dd {
-      margin: 0;
-      line-height: 1.5;
-      color: var(--color-text-muted);
-    }
-  }
-}
 </style>

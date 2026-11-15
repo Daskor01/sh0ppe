@@ -11,27 +11,27 @@
 </template>
 
 <style scoped lang="scss">
-.account-dashboard {
-  max-width: 720px;
+  .account-dashboard {
+    max-width: 720px;
 
-  &__intro {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--color-text-muted);
+    &__intro {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--color-text-muted);
 
-    a {
-      color: var(--color-accent);
-      text-decoration: none;
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
 
-      &:hover {
-        text-decoration: underline;
-      }
+        &:hover {
+          text-decoration: underline;
+        }
 
-      &:focus-visible {
-        @include mixins.focus-ring;
+        &:focus-visible {
+          @include mixins.focus-ring;
+        }
       }
     }
   }
-}
 </style>

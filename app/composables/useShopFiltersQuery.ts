@@ -56,11 +56,9 @@ export function useShopFiltersQuery() {
     }
 
     syncingToRoute = true
-    router
-      .replace({ path: '/shop', query: nextQuery })
-      .finally(() => {
-        syncingToRoute = false
-      })
+    router.replace({ path: '/shop', query: nextQuery }).finally(() => {
+      syncingToRoute = false
+    })
   }
 
   function schedulePushStoreToRoute() {

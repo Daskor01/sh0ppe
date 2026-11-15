@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
 import { getAccountMockOrder } from '~/data/accountMock'
-import type {
-  PaymentMethod,
-  PlaceOrderInput,
-  PlacedOrder,
-} from '~/types/order'
+import type { PaymentMethod, PlaceOrderInput, PlacedOrder } from '~/types/order'
 import { assertNever } from '~/utils/assertNever'
 import { parsePlacedOrdersRecord } from '~/utils/storageParse'
 
@@ -53,12 +49,7 @@ function getPaymentLabel(method: PaymentMethod): string {
 }
 
 function formatDeliveryAddress(input: PlaceOrderInput['billing']): string {
-  const parts = [
-    input.street,
-    input.city,
-    input.postcode,
-    input.country,
-  ].filter(Boolean)
+  const parts = [input.street, input.city, input.postcode, input.country].filter(Boolean)
   return parts.join(', ')
 }
 

@@ -8,22 +8,22 @@
 </template>
 
 <script setup lang="ts">
-import { ACCOUNT_MOCK_ORDER_ROWS } from '~/data/accountMock'
+  import { ACCOUNT_MOCK_ORDER_ROWS } from '~/data/accountMock'
 
-definePageMeta({
-  middleware: 'account-protected',
-})
+  definePageMeta({
+    middleware: 'account-protected',
+  })
 
-/** Переключите на `true`, чтобы показать пустое состояние из макета. */
-const showEmptyState = false
+  /** Переключите на `true`, чтобы показать пустое состояние из макета. */
+  const showEmptyState = false
 
-useSeoMeta({
-  title: 'Orders — My account — SHOPPE',
-})
+  useSeoMeta({
+    title: 'Orders — My account — SHOPPE',
+  })
 </script>
 
 <style scoped lang="scss">
-.account-section {
-  width: 100%;
-}
+  .account-section {
+    width: 100%;
+  }
 </style>

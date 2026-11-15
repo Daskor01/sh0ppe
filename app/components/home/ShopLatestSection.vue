@@ -6,50 +6,46 @@
     </div>
 
     <div class="shop-latest__grid">
-      <ProductCard
-        v-for="product in catalog.products"
-        :key="product.id"
-        :product="product"
-      />
+      <ProductCard v-for="product in catalog.products" :key="product.id" :product="product" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useCatalogStore } from '~/stores/useCatalogStore'
+  import { useCatalogStore } from '~/stores/useCatalogStore'
 
-const catalog = useCatalogStore()
+  const catalog = useCatalogStore()
 </script>
 
 <style scoped lang="scss">
-.shop-latest {
-  @include mixins.container;
+  .shop-latest {
+    @include mixins.container;
 
-  &__header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 24px;
+    &__header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
 
-    @include mixins.respond-to(lg) {
-      margin-bottom: 32px;
+      @include mixins.respond-to(lg) {
+        margin-bottom: 32px;
+      }
+    }
+
+    &__title {
+      font-size: clamp(22px, 4vw, 28px);
+      font-weight: 500;
+    }
+
+    &__view-all {
+      @include mixins.link-accent;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    &__grid {
+      @include mixins.product-grid;
     }
   }
-
-  &__title {
-    font-size: clamp(22px, 4vw, 28px);
-    font-weight: 500;
-  }
-
-  &__view-all {
-    @include mixins.link-accent;
-    font-size: 16px;
-    white-space: nowrap;
-  }
-
-  &__grid {
-    @include mixins.product-grid;
-  }
-}
 </style>
