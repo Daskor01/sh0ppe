@@ -15,8 +15,14 @@
   display: flex;
   flex-direction: column;
 
+  /* sticky header must not shrink inside flex column */
+  > :first-child {
+    flex-shrink: 0;
+  }
+
   &__main {
     flex: 1;
+    min-width: 0;
   }
 }
 </style>

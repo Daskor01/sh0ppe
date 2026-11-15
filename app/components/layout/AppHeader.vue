@@ -188,15 +188,19 @@ const navLinks = [
 
 <style scoped lang="scss">
 .site-header {
+  position: sticky;
+  top: 0;
   z-index: var(--z-header);
+  flex-shrink: 0;
   background: var(--color-surface);
+  isolation: isolate;
+
+  @media (max-width: 1023px) {
+    border-bottom: 1px solid var(--color-border);
+  }
 
   &__sticky {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-header);
     background: var(--color-surface);
-    isolation: isolate;
   }
 
   &__mobile-wrap {
