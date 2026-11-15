@@ -2,6 +2,8 @@
 
 Демо-витрина ювелирного магазина: каталог, корзина, checkout, блог, личный кабинет. Данные в моках — можно крутить UI и SSR без бэкенда.
 
+**Демо:** [sh0ppe.netlify.app](https://sh0ppe.netlify.app/)
+
 ## Стек
 
 Nuxt 4 · Vue 3 · TypeScript · Pinia · SCSS · Vitest
