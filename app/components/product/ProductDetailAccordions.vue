@@ -26,7 +26,7 @@
             :product-slug="productSlug"
             :reviews="detail.reviews"
             layout="mobile"
-            @submitted="emit('reviewSubmitted')"
+            @submitted="emit('reviewSubmitted', $event)"
           />
           <p v-else>{{ section.body }}</p>
         </div>
@@ -47,7 +47,7 @@
   }>()
 
   const emit = defineEmits<{
-    reviewSubmitted: []
+    reviewSubmitted: [payload: import('~/types/productReviewApi').ProductReviewsResponse]
   }>()
 
   type SectionId = 'description' | 'additional' | 'reviews'

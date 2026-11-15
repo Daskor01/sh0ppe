@@ -15,7 +15,7 @@
         v-if="!isMobileLayout"
         :product-slug="productSlug"
         class="product-reviews__form"
-        @submitted="onReviewSubmitted()"
+        @submitted="onReviewSubmitted($event)"
       />
     </div>
 
@@ -24,13 +24,14 @@
       :open="reviewDialogOpen"
       :product-slug="productSlug"
       @close="reviewDialogOpen = false"
-      @submitted="onReviewSubmitted()"
+      @submitted="onReviewSubmitted($event)"
     />
   </section>
 </template>
 
 <script setup lang="ts">
   import type { ProductReview } from '~/types/product'
+  import type { ProductReviewsResponse } from '~/types/productReviewApi'
   import ProductReviewForm from '~/components/product/ProductReviewForm.vue'
   import ProductReviewList from '~/components/product/ProductReviewList.vue'
   import ProductReviewsDialog from '~/components/product/ProductReviewsDialog.vue'
@@ -48,14 +49,14 @@
   )
 
   const emit = defineEmits<{
-    submitted: []
+    submitted: [payload: ProductReviewsResponse]
   }>()
 
   const reviewDialogOpen = ref(false)
 
-  function onReviewSubmitted() {
+  function onReviewSubmitted(payload: ProductReviewsResponse) {
     reviewDialogOpen.value = false
-    emit('submitted')
+    emit('submitted', payload)
   }
 
   const isMobileLayout = computed(() => props.layout === 'mobile')

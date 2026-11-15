@@ -74,7 +74,11 @@
   const quantity = ref(1)
   const accordionSection = ref<'description' | 'additional' | 'reviews' | null>(null)
 
-  async function onReviewSubmitted() {
+  async function onReviewSubmitted(payload?: ProductReviewsResponse) {
+    if (payload) {
+      reviewsPayload.value = payload
+      return
+    }
     await refreshReviews()
   }
 

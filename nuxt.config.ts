@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 const useNetlifyPreset = process.env.NITRO_PRESET === 'netlify' || process.env.NETLIFY === 'true'
 
+/** Netlify Blobs only in production Netlify builds; dev/preview use fs in .data/reviews */
+const useReviewsBlobStorage =
+  process.env.NODE_ENV === 'production' &&
+  (process.env.NITRO_PRESET === 'netlify' || process.env.NETLIFY === 'true')
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   ssr: true,
@@ -9,7 +14,7 @@ export default defineNuxtConfig({
   nitro: {
     ...(useNetlifyPreset ? { preset: 'netlify' as const } : {}),
     storage: {
-      reviews: useNetlifyPreset
+      reviews: useReviewsBlobStorage
         ? {
             driver: 'netlifyBlobs',
             name: 'shoppe-product-reviews',

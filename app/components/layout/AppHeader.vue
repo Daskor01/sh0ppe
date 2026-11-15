@@ -64,8 +64,6 @@
           @before-leave="onDesktopSearchBeforeLeave()"
         />
 
-        <LayoutAppToast class="site-header__toast" />
-
         <LayoutHeaderMobileSearch
           v-show="showMobileSearch"
           v-model="searchQuery"
@@ -193,12 +191,10 @@
     flex-shrink: 0;
     width: 100%;
     background: var(--color-surface);
-    isolation: isolate;
 
     &__sticky {
       width: 100%;
       background: var(--color-surface);
-      transform: translateZ(0);
     }
 
     &__mobile-wrap {
@@ -223,7 +219,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: var(--header-height-mobile);
+      min-height: var(--header-height-mobile);
       gap: 16px;
 
       @media (max-width: 1023px) {
@@ -235,7 +231,7 @@
 
       @include mixins.respond-to(lg) {
         align-items: stretch;
-        height: var(--header-height-desktop);
+        min-height: var(--header-height-desktop);
       }
     }
 
@@ -337,21 +333,23 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      box-sizing: content-box;
+      width: 24px;
+      height: 24px;
+      padding: 6px;
+      flex-shrink: 0;
       border: none;
       background: transparent;
       color: var(--color-text);
       cursor: pointer;
 
-      &:focus-visible {
-        @include mixins.focus-ring;
-      }
+      @include mixins.focus-ring-fine-pointer-only;
     }
 
     &__cart-badge {
       position: absolute;
-      top: -2px;
-      right: -6px;
+      top: 2px;
+      right: 0;
       min-width: 16px;
       height: 16px;
       padding: 0 4px;
@@ -366,15 +364,19 @@
 
     &__menu-btn {
       display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: content-box;
+      width: 24px;
+      height: 24px;
+      padding: 6px;
+      flex-shrink: 0;
       border: none;
       background: transparent;
-      padding: 4px;
       cursor: pointer;
       color: var(--color-text);
 
-      &:focus-visible {
-        @include mixins.focus-ring;
-      }
+      @include mixins.focus-ring-fine-pointer-only;
     }
 
     &--menu-open :deep(.header-mobile-search),

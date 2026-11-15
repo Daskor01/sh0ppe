@@ -1,6 +1,7 @@
 <template>
   <div class="layout-default">
     <LayoutAppHeader />
+    <LayoutAppToast />
     <main class="layout-default__main">
       <slot />
     </main>
@@ -8,6 +9,10 @@
     <CartDrawer />
   </div>
 </template>
+
+<script setup lang="ts">
+  useSiteHeaderOffset()
+</script>
 
 <style scoped lang="scss">
   .layout-default {

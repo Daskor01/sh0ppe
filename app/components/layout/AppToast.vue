@@ -1,47 +1,49 @@
 <template>
-  <div
-    class="app-toast-stack"
-    :class="stackClass"
-    :aria-hidden="!hasToasts"
-    aria-live="polite"
-    aria-atomic="true"
-  >
-    <TransitionGroup name="app-toast" tag="div" class="app-toast-stack__list">
-      <article
-        v-for="(item, index) in toast.items"
-        :key="item.id"
-        class="app-toast-stack__item"
-        :style="{ zIndex: zIndex(index) }"
-      >
-        <div class="app-toast-stack__panel">
-          <div class="app-toast-stack__inner">
-            <div class="app-toast-stack__message">
-              <span class="app-toast-stack__icon" aria-hidden="true">
-                <Check :size="14" stroke-width="3" />
-              </span>
-              <p class="app-toast-stack__text">{{ item.message }}</p>
+  <Teleport to="body">
+    <div
+      class="app-toast-stack"
+      :class="stackClass"
+      :aria-hidden="!hasToasts"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <TransitionGroup name="app-toast" tag="div" class="app-toast-stack__list">
+        <article
+          v-for="(item, index) in toast.items"
+          :key="item.id"
+          class="app-toast-stack__item"
+          :style="{ zIndex: zIndex(index) }"
+        >
+          <div class="app-toast-stack__panel">
+            <div class="app-toast-stack__inner">
+              <div class="app-toast-stack__message">
+                <span class="app-toast-stack__icon" aria-hidden="true">
+                  <Check :size="14" stroke-width="3" />
+                </span>
+                <p class="app-toast-stack__text">{{ item.message }}</p>
+              </div>
+              <NuxtLink
+                v-if="item.action?.to"
+                :to="item.action.to"
+                class="app-toast-stack__action"
+                @click="onActionClick(item.id)"
+              >
+                {{ item.action.label }}
+              </NuxtLink>
+              <button
+                v-else-if="item.action?.onClick"
+                type="button"
+                class="app-toast-stack__action app-toast-stack__action--btn"
+                @click="onActionButtonClick(item.id, item.action.onClick)"
+              >
+                {{ item.action.label }}
+              </button>
             </div>
-            <NuxtLink
-              v-if="item.action?.to"
-              :to="item.action.to"
-              class="app-toast-stack__action"
-              @click="onActionClick(item.id)"
-            >
-              {{ item.action.label }}
-            </NuxtLink>
-            <button
-              v-else-if="item.action?.onClick"
-              type="button"
-              class="app-toast-stack__action app-toast-stack__action--btn"
-              @click="onActionButtonClick(item.id, item.action.onClick)"
-            >
-              {{ item.action.label }}
-            </button>
           </div>
-        </div>
-      </article>
-    </TransitionGroup>
-  </div>
+        </article>
+      </TransitionGroup>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -71,8 +73,8 @@
 
 <style scoped lang="scss">
   .app-toast-stack {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: var(--site-header-offset, var(--header-height-mobile));
     left: 0;
     right: 0;
     z-index: var(--z-toast);
@@ -81,11 +83,13 @@
     &__list {
       position: relative;
       height: 0;
+      max-height: 0;
       overflow: hidden;
     }
 
     &--active &__list {
-      height: 52px;
+      height: auto;
+      max-height: 80px;
     }
 
     &__item {

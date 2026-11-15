@@ -31,7 +31,7 @@
           </button>
         </header>
         <div class="product-reviews-dialog__body">
-          <ProductReviewForm :product-slug="productSlug" @submitted="onSubmitted()" />
+          <ProductReviewForm :product-slug="productSlug" @submitted="onSubmitted($event)" />
         </div>
       </div>
     </Transition>
@@ -41,6 +41,7 @@
 <script setup lang="ts">
   import { X } from '@lucide/vue'
   import ProductReviewForm from '~/components/product/ProductReviewForm.vue'
+  import type { ProductReviewsResponse } from '~/types/productReviewApi'
 
   const props = defineProps<{
     open: boolean
@@ -49,7 +50,7 @@
 
   const emit = defineEmits<{
     close: []
-    submitted: []
+    submitted: [payload: ProductReviewsResponse]
   }>()
 
   useBodyScrollLock(() => props.open)
@@ -59,8 +60,8 @@
     () => emit('close'),
   )
 
-  function onSubmitted() {
-    emit('submitted')
+  function onSubmitted(payload: ProductReviewsResponse) {
+    emit('submitted', payload)
     emit('close')
   }
 </script>

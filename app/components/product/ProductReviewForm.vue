@@ -73,13 +73,14 @@
     reviewSubmitErrorMessage,
     submitProductReview,
   } from '~/composables/useSubmitProductReview'
+  import type { ProductReviewsResponse } from '~/types/productReviewApi'
 
   const props = defineProps<{
     productSlug: string
   }>()
 
   const emit = defineEmits<{
-    submitted: []
+    submitted: [payload: ProductReviewsResponse]
   }>()
 
   const { isSignedIn, displayName, email: accountEmail, syncFromCookie } = useAccountSession()
@@ -111,7 +112,7 @@
     submitting.value = true
 
     try {
-      await submitProductReview({
+      const response = await submitProductReview({
         productSlug: props.productSlug,
         body: body.value.trim(),
         rating: rating.value,
@@ -125,7 +126,7 @@
       rating.value = 0
       saveInBrowser.value = false
 
-      emit('submitted')
+      emit('submitted', response)
 
       await nextTick()
 

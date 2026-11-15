@@ -34,5 +34,8 @@ export function reviewSubmitErrorMessage(error: unknown): string {
   if (isFetchErrorWithStatus(error, 400)) {
     return 'Could not save the review. Check the fields and try again.'
   }
+  if (isFetchErrorWithStatus(error, 500)) {
+    return 'Review storage is unavailable. Try again later.'
+  }
   return 'Could not save your review. Please try again.'
 }
