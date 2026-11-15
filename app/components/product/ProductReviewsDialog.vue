@@ -6,6 +6,7 @@
         class="product-reviews-dialog__backdrop"
         aria-hidden="true"
         @click="emit('close')"
+        @touchmove.prevent
       />
     </Transition>
     <Transition name="product-reviews-slide">
@@ -49,21 +50,7 @@ const emit = defineEmits<{
   close: []
 }>()
 
-watch(
-  () => props.open,
-  (isOpen) => {
-    if (!import.meta.client) {
-      return
-    }
-    document.body.style.overflow = isOpen ? 'hidden' : ''
-  },
-)
-
-onUnmounted(() => {
-  if (import.meta.client) {
-    document.body.style.overflow = ''
-  }
-})
+useBodyScrollLock(() => props.open)
 
 useDismissOnEscape(() => props.open, () => emit('close'))
 
@@ -81,6 +68,7 @@ function onSubmitted() {
   max-height: min(92vh, 640px);
   display: flex;
   flex-direction: column;
+  overscroll-behavior: contain;
   background: var(--color-surface);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   box-shadow: 0 -8px 32px rgb(0 0 0 / 12%);
@@ -90,6 +78,7 @@ function onSubmitted() {
     inset: 0;
     z-index: var(--z-overlay);
     background: rgb(0 0 0 / 35%);
+    touch-action: none;
   }
 
   &__head {

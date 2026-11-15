@@ -82,6 +82,7 @@
 
 <script setup lang="ts">
 import { ACCOUNT_MOCK_EMAIL, ACCOUNT_MOCK_PASSWORD } from '~/data/accountMock'
+import { resolveAfterAccountAuth } from '~/utils/accountRedirect'
 
 type AuthTab = 'sign-in' | 'register'
 
@@ -98,20 +99,12 @@ const registerPassword = ref(ACCOUNT_MOCK_PASSWORD)
 
 const route = useRoute()
 
-function authRedirectPath(): string {
-  const redirect = route.query.redirect
-  if (typeof redirect === 'string' && redirect.startsWith('/') && !redirect.startsWith('//')) {
-    return redirect
-  }
-  return '/account'
-}
-
 function onSignIn() {
   session.signIn()
   useToastStore().show({
     message: 'Welcome back! You are signed in (demo).',
   })
-  router.push(authRedirectPath())
+  router.push(resolveAfterAccountAuth(route.query.redirect))
 }
 
 const isSignInTab = computed(() => activeTab.value === 'sign-in')
@@ -130,7 +123,7 @@ function onRegister() {
   useToastStore().show({
     message: 'Account created (demo). You are now signed in.',
   })
-  router.push(authRedirectPath())
+  router.push(resolveAfterAccountAuth(route.query.redirect))
 }
 </script>
 

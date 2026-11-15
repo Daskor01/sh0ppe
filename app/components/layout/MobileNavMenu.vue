@@ -72,7 +72,7 @@
           </template>
           <NuxtLink
             v-else
-            to="/account"
+            :to="accountSignInTo"
             class="mobile-nav__account-row"
             @click="onAccountAction()"
           >
@@ -100,6 +100,7 @@ const emit = defineEmits<{
 const cart = useCartStore()
 const { isSignedIn, signOut } = useAccountSession()
 const router = useRouter()
+const accountSignInTo = useAccountSignInRoute()
 
 const showCartBadge = computed(() => cart.totalItems > 0)
 

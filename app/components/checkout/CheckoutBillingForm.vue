@@ -133,6 +133,7 @@
 import { createDefaultBillingAddress } from '~/data/accountMock'
 import type { CheckoutBilling } from '~/types/order'
 import type { BaseSelectOption } from '~/types/ui'
+import { accountSignInRoute } from '~/utils/accountRedirect'
 import { createEmptyCheckoutBilling } from '~/utils/checkoutValidation'
 
 type BillingSource = 'account' | 'other'
@@ -164,7 +165,7 @@ function applyEmptyBilling() {
 
 function selectBillingSource(source: BillingSource) {
   if (source === 'account' && !isSignedIn.value) {
-    router.push({ path: '/account', query: { redirect: '/checkout' } })
+    router.push(accountSignInRoute('/checkout'))
     return
   }
 

@@ -22,7 +22,7 @@
         {{ cart.totalItems }}
       </span>
     </button>
-    <NuxtLink to="/account" class="header-actions__btn" aria-label="Account">
+    <NuxtLink :to="accountSignInTo" class="header-actions__btn" aria-label="Account">
       <User :size="20" aria-hidden="true" />
     </NuxtLink>
   </div>
@@ -33,6 +33,7 @@ import { Search, ShoppingCart, User } from '@lucide/vue'
 
 const cart = useCartStore()
 const { openCart } = useCartUi()
+const accountSignInTo = useAccountSignInRoute()
 
 const props = withDefaults(
   defineProps<{

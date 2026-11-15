@@ -1,4 +1,5 @@
 import { ACCOUNT_SIGNED_IN_COOKIE } from '~/constants/session'
+import { accountSignInRoute } from '~/utils/accountRedirect'
 
 const PROTECTED_PATHS = [
   '/account/orders',
@@ -21,12 +22,12 @@ export default defineNuxtRouteMiddleware((to) => {
       syncFromCookie()
     }
     if (!isSignedIn.value) {
-      return navigateTo('/account')
+      return navigateTo(accountSignInRoute(to.fullPath))
     }
     return
   }
 
   if (!signedIn) {
-    return navigateTo('/account')
+    return navigateTo(accountSignInRoute(to.fullPath))
   }
 })

@@ -192,24 +192,19 @@ const navLinks = [
   top: 0;
   z-index: var(--z-header);
   flex-shrink: 0;
+  width: 100%;
   background: var(--color-surface);
-  isolation: isolate;
-
-  @media (max-width: 1023px) {
-    border-bottom: 1px solid var(--color-border);
-  }
 
   &__sticky {
+    width: 100%;
     background: var(--color-surface);
   }
 
   &__mobile-wrap {
+    width: 100%;
+
     @media (max-width: 1023px) {
       padding-inline: var(--gutter-mobile);
-    }
-
-    @include mixins.respond-to(lg) {
-      display: contents;
     }
   }
 
