@@ -1,0 +1,62 @@
+// Design tokens from Figma + semantic aliases
+:root {
+  --dark-colors-accent----dark: #b4a186;
+  --dark-colors-light-gray---dark: #9a9a9a;
+  --dark-colors-gray---dark: #3d3d3d;
+  --dark-colors-dark-gray---dark: #272727;
+  --dark-colors-black---dark: #0a0a0a;
+  --dark-colors-white---dark: #fbfbfb;
+  --light-colors-errors---light: #d82700;
+  --light-colors-accent---light: #a18a68;
+  --light-colors-black---light: #000;
+  --light-colors-dark-gray---light: #707070;
+  --light-colors-gray---light: #d8d8d8;
+  --light-colors-light-gray---light: #efefef;
+  --light-colors-white---light: #fff;
+
+  --color-accent: var(--light-colors-accent---light);
+  --color-text: var(--light-colors-black---light);
+  --color-text-muted: var(--light-colors-dark-gray---light);
+  --color-text-subtle: var(--light-colors-dark-gray---light);
+  --color-border: var(--light-colors-gray---light);
+  --color-surface: var(--light-colors-white---light);
+  --color-surface-muted: var(--light-colors-light-gray---light);
+  --color-error: var(--light-colors-errors---light);
+
+  --font-logo: 'Allerta Stencil', sans-serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+
+  --container-max: 1248px;
+  --gutter-mobile: 16px;
+  --gutter-desktop: 24px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --header-height-mobile: 56px;
+  --header-height-desktop: 72px;
+
+  --transition-base: 0.2s ease;
+  --transition-overlay: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-drawer: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-dropdown: 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-accordion: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-panel: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --z-toast: 5;
+  --z-local: 1;
+  --z-local-raised: 2;
+  --z-dropdown: 20;
+  --z-header: 110;
+  --z-header-bar: 2;
+  --z-overlay: 119;
+  --z-drawer: 120;
+  --z-cart-backdrop: 129;
+  --z-cart: 130;
+}
+
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;

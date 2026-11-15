@@ -1,0 +1,21 @@
+@use '~/assets/scss/variables';
+@use '~/assets/scss/typography';
+@use '~/assets/scss/components/account-table';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
