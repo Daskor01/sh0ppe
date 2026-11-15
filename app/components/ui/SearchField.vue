@@ -129,8 +129,19 @@
     }
 
     &__icon {
+      display: inline-flex;
       flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
       color: var(--color-text-muted);
+
+      :deep(svg) {
+        display: block;
+        width: 18px;
+        height: 18px;
+      }
     }
 
     &__clear {
@@ -140,6 +151,12 @@
       justify-content: center;
       width: 24px;
       height: 24px;
+
+      :deep(svg) {
+        display: block;
+        width: 16px;
+        height: 16px;
+      }
       padding: 0;
       border: none;
       border-radius: 50%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-default">
+  <div class="layout-default" :class="layoutRootClass">
     <LayoutAppHeader />
     <LayoutAppToast />
     <main class="layout-default__main">
@@ -9,6 +9,22 @@
     <CartDrawer />
   </div>
 </template>
+
+<script setup lang="ts">
+  const route = useRoute()
+
+  const layoutRootClass = computed(() => ({
+    'layout-default--mobile-search-row': route.path === '/' || route.path === '/shop',
+  }))
+
+  useHead({
+    htmlAttrs: {
+      class: computed(() =>
+        route.path === '/' || route.path === '/shop' ? 'layout-mobile-search-row' : undefined,
+      ),
+    },
+  })
+</script>
 
 <style scoped lang="scss">
   .layout-default {

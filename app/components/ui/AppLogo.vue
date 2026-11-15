@@ -16,12 +16,13 @@
     display: block;
     font-family: var(--font-logo);
     font-weight: 400;
-    font-size: clamp(28px, 8vw, 35px);
+    font-size: 28px;
     line-height: 1;
     color: var(--light-colors-black---light);
     text-decoration: none;
 
     @include mixins.respond-to(lg) {
+      font-size: 35px;
       line-height: 116%;
     }
   }

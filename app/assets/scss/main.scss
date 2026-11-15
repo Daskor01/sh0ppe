@@ -14,6 +14,12 @@ html {
   overflow-y: scroll;
 }
 
+@media (max-width: 1023px) {
+  html.layout-mobile-search-row {
+    --site-header-offset: calc(var(--header-height-mobile) + var(--header-mobile-toolbar-block));
+  }
+}
+
 body {
   margin: 0;
   padding: 0;

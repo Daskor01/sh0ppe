@@ -29,31 +29,14 @@
   }>()
 
   const formRef = ref<HTMLElement | null>(null)
-  const fieldFocused = ref(false)
-
-  function onFocusIn() {
-    fieldFocused.value = true
-  }
-
-  function onFocusOut(event: FocusEvent) {
-    const root = formRef.value
-    if (!root) {
-      fieldFocused.value = false
-      return
-    }
-    const next = event.relatedTarget
-    if (next instanceof Node && root.contains(next)) {
-      return
-    }
-    fieldFocused.value = false
-  }
+  const { fieldFocused, onFocusIn, onFocusOut } = useContainedFieldFocus(formRef)
 </script>
 
 <style scoped lang="scss">
   .header-mobile-search {
     position: relative;
     box-sizing: border-box;
-    min-height: var(--header-mobile-toolbar-block);
+    height: var(--header-mobile-toolbar-block);
     padding-block: 0 16px;
     border-bottom: 1px solid var(--color-border);
 
