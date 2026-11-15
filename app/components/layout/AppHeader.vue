@@ -102,10 +102,7 @@ const desktopSearchRecentsVisible = ref(false)
 
 const showCartBadge = computed(() => cart.totalItems > 0)
 
-const showMobileSearch = computed(() => {
-  const path = route.path
-  return path === '/' || path === '/shop'
-})
+const showMobileSearch = computed(() => route.path === '/')
 
 const showShopMobileToolbar = computed(() => route.path === '/shop')
 

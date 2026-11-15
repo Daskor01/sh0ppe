@@ -11,13 +11,20 @@
 
     <div class="product-reviews__layout">
       <ProductReviewList :product-name="productName" :reviews="reviews" />
-      <ProductReviewForm v-if="!isMobileLayout" class="product-reviews__form" />
+      <ProductReviewForm
+        v-if="!isMobileLayout"
+        :product-slug="productSlug"
+        class="product-reviews__form"
+        @submitted="onReviewSubmitted()"
+      />
     </div>
 
     <ProductReviewsDialog
       v-if="isMobileLayout"
       :open="reviewDialogOpen"
+      :product-slug="productSlug"
       @close="reviewDialogOpen = false"
+      @submitted="onReviewSubmitted()"
     />
   </section>
 </template>
@@ -31,6 +38,7 @@ import ProductReviewsDialog from '~/components/product/ProductReviewsDialog.vue'
 const props = withDefaults(
   defineProps<{
     productName: string
+    productSlug: string
     reviews: ProductReview[]
     layout?: 'desktop' | 'mobile'
   }>(),
@@ -39,7 +47,16 @@ const props = withDefaults(
   },
 )
 
+const emit = defineEmits<{
+  submitted: []
+}>()
+
 const reviewDialogOpen = ref(false)
+
+function onReviewSubmitted() {
+  reviewDialogOpen.value = false
+  emit('submitted')
+}
 
 const isMobileLayout = computed(() => props.layout === 'mobile')
 

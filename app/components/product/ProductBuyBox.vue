@@ -10,7 +10,12 @@
         <span class="product-buy__price">{{ formatPrice(product.price) }}</span>
         <span v-if="discount != null" class="product-buy__badge">-{{ discount }}%</span>
       </div>
-      <button type="button" class="product-buy__share-mobile" aria-label="Share product">
+      <button
+        type="button"
+        class="product-buy__share-mobile"
+        aria-label="Copy product link"
+        @click="copyProductLink()"
+      >
         <Share2 :size="20" aria-hidden="true" />
       </button>
     </div>
@@ -78,6 +83,7 @@ const emit = defineEmits<{
 
 const cart = useCartStore()
 const { formatPrice } = useFormatPrice()
+const { copyProductLink } = useProductShareLink(props.product.slug)
 
 const onSale = computed(() => hasSale(props.product))
 const discount = computed(() => getEffectiveDiscount(props.product))

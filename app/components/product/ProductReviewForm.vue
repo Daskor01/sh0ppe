@@ -52,7 +52,12 @@
       <ProductReviewStars v-model:rating="rating" interactive size="md" />
     </div>
 
-    <UiBaseButton type="submit" variant="solid-black" class="product-review-form__submit">
+    <UiBaseButton
+      type="submit"
+      variant="solid-black"
+      class="product-review-form__submit"
+      :disabled="submitting"
+    >
       Submit
     </UiBaseButton>
   </form>
@@ -60,6 +65,10 @@
 
 <script setup lang="ts">
 import ProductReviewStars from '~/components/product/ProductReviewStars.vue'
+
+const props = defineProps<{
+  productSlug: string
+}>()
 
 const emit = defineEmits<{
   submitted: []
@@ -73,7 +82,9 @@ const email = ref('')
 const saveInBrowser = ref(false)
 const rating = ref(0)
 
-function onSubmit() {
+const submitting = ref(false)
+
+async function onSubmit() {
   const authorName = isSignedIn.value ? displayName.value.trim() : name.value.trim()
   const authorEmail = isSignedIn.value ? accountEmail.value.trim() : email.value.trim()
 
@@ -82,18 +93,44 @@ function onSubmit() {
     return
   }
 
-  useToastStore().show({
-    message: isSignedIn.value
-      ? `Thank you, ${displayName.value}! Your review was submitted (demo).`
-      : 'Thank you! Your review was submitted (demo).',
-  })
+  if (isSignedIn.value) {
+    if (submitting.value) {
+      return
+    }
+    submitting.value = true
+  }
 
-  body.value = ''
-  name.value = ''
-  email.value = ''
-  rating.value = 0
-  saveInBrowser.value = false
-  emit('submitted')
+  try {
+    if (isSignedIn.value) {
+      await $fetch(`/api/products/${props.productSlug}/reviews`, {
+        method: 'POST',
+        body: {
+          body: body.value.trim(),
+          rating: rating.value,
+        },
+      })
+      useToastStore().show({
+        message: `Thank you, ${displayName.value}! Your review was posted.`,
+      })
+    } else {
+      useToastStore().show({
+        message: 'Thank you! Your review was submitted (demo). Sign in to publish a review.',
+      })
+    }
+
+    body.value = ''
+    name.value = ''
+    email.value = ''
+    rating.value = 0
+    saveInBrowser.value = false
+    emit('submitted')
+  } catch {
+    useToastStore().show({
+      message: 'Could not save your review. Please sign in and try again.',
+    })
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 

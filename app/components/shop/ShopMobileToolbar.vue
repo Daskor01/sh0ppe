@@ -1,9 +1,32 @@
 <template>
   <div class="shop-mobile-toolbar">
-    <h1 class="shop-mobile-toolbar__title">Shop</h1>
-    <button type="button" class="shop-mobile-toolbar__filters" @click="filters.openMobilePanel()">
-      <SlidersHorizontal :size="18" aria-hidden="true" />
-      Filters
+    <form
+      ref="formRef"
+      class="shop-mobile-toolbar__search"
+      @submit.prevent="onSearchSubmit()"
+      @focusin="onFocusIn()"
+      @focusout="onFocusOut($event)"
+    >
+      <UiSearchField
+        id="shop-mobile-search"
+        v-model="searchQuery"
+        placeholder="Search"
+        @submit="onSearchSubmit()"
+        @escape="onSearchEscape()"
+      />
+      <SearchRecentQueries
+        :visible="showRecentQueries"
+        require-focus-on-mobile
+        :field-focused="fieldFocused"
+      />
+    </form>
+    <button
+      type="button"
+      class="shop-mobile-toolbar__filters"
+      aria-label="Open filters"
+      @click="filters.openMobilePanel()"
+    >
+      <SlidersHorizontal :size="20" aria-hidden="true" />
     </button>
   </div>
 </template>
@@ -12,43 +35,76 @@
 import { SlidersHorizontal } from '@lucide/vue'
 
 const filters = useShopFiltersStore()
+const { searchQuery, submitSearch } = useHeaderSearchPanel()
+
+const showRecentQueries = computed(() => !searchQuery.value.trim())
+
+const formRef = ref<HTMLElement | null>(null)
+const fieldFocused = ref(false)
+
+function onSearchSubmit() {
+  submitSearch()
+}
+
+function onSearchEscape() {
+  searchQuery.value = ''
+}
+
+function onFocusIn() {
+  fieldFocused.value = true
+}
+
+function onFocusOut(event: FocusEvent) {
+  const root = formRef.value
+  if (!root) {
+    fieldFocused.value = false
+    return
+  }
+  const next = event.relatedTarget
+  if (next instanceof Node && root.contains(next)) {
+    return
+  }
+  fieldFocused.value = false
+}
 </script>
 
 <style scoped lang="scss">
 .shop-mobile-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-block: 12px 16px;
+  gap: 12px;
+  padding-block: 0 16px;
   border-bottom: 1px solid var(--color-border);
 
   @include mixins.respond-to(lg) {
     display: none;
   }
 
-  &__title {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--color-text);
+  &__search {
+    position: relative;
+    flex: 1;
+    min-width: 0;
   }
 
   &__filters {
     display: inline-flex;
+    flex-shrink: 0;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: none;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    color: var(--color-accent);
-    background: transparent;
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    background: var(--color-surface-muted);
     cursor: pointer;
-    transition: opacity var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      background var(--transition-base);
 
     &:hover {
-      opacity: 0.78;
+      opacity: 0.85;
     }
 
     &:focus-visible {

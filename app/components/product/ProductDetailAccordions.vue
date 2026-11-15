@@ -23,8 +23,10 @@
           <ProductReviewsSection
             v-if="section.id === 'reviews'"
             :product-name="productName"
+            :product-slug="productSlug"
             :reviews="detail.reviews"
             layout="mobile"
+            @submitted="emit('reviewSubmitted')"
           />
           <p v-else>{{ section.body }}</p>
         </div>
@@ -40,7 +42,12 @@ import type { ProductPageContent } from '~/types/product'
 const props = defineProps<{
   detail: ProductPageContent
   productName: string
+  productSlug: string
   openSection?: 'description' | 'additional' | 'reviews' | null
+}>()
+
+const emit = defineEmits<{
+  reviewSubmitted: []
 }>()
 
 type SectionId = 'description' | 'additional' | 'reviews'

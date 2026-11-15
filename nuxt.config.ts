@@ -9,6 +9,17 @@ export default defineNuxtConfig({
 
   nitro: {
     ...(useNetlifyPreset ? { preset: 'netlify' as const } : {}),
+    storage: {
+      reviews: useNetlifyPreset
+        ? {
+            driver: 'netlifyBlobs',
+            name: 'shoppe-product-reviews',
+          }
+        : {
+            driver: 'fs',
+            base: './.data/reviews',
+          },
+    },
   },
 
   modules: ['@pinia/nuxt', '@nuxt/eslint'],

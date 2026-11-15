@@ -102,8 +102,12 @@ const pageOverrides: Partial<
   'hal-earrings': { sku: '18', rating: 5 },
 }
 
+export function getStaticProductReviews(slug: string): ProductReview[] {
+  return productReviews[slug] ?? []
+}
+
 function getReviewsForProduct(product: Product): ProductReview[] {
-  return productReviews[product.slug] ?? []
+  return getStaticProductReviews(product.slug)
 }
 
 export function getProductPageContent(product: Product): ProductPageContent {

@@ -26,8 +26,10 @@
           <ProductReviewsSection
             v-if="activeTab === 'reviews'"
             :product-name="productName"
+            :product-slug="productSlug"
             :reviews="detail.reviews"
             layout="desktop"
+            @submitted="emit('reviewSubmitted')"
           />
           <p v-else>{{ activePanelText }}</p>
         </div>
@@ -42,6 +44,11 @@ import type { ProductPageContent } from '~/types/product'
 const props = defineProps<{
   detail: ProductPageContent
   productName: string
+  productSlug: string
+}>()
+
+const emit = defineEmits<{
+  reviewSubmitted: []
 }>()
 
 type TabId = 'description' | 'additional' | 'reviews'

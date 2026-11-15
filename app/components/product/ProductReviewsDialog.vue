@@ -31,7 +31,7 @@
           </button>
         </header>
         <div class="product-reviews-dialog__body">
-          <ProductReviewForm @submitted="onSubmitted()" />
+          <ProductReviewForm :product-slug="productSlug" @submitted="onSubmitted()" />
         </div>
       </div>
     </Transition>
@@ -44,10 +44,12 @@ import ProductReviewForm from '~/components/product/ProductReviewForm.vue'
 
 const props = defineProps<{
   open: boolean
+  productSlug: string
 }>()
 
 const emit = defineEmits<{
   close: []
+  submitted: []
 }>()
 
 useBodyScrollLock(() => props.open)
@@ -55,6 +57,7 @@ useBodyScrollLock(() => props.open)
 useDismissOnEscape(() => props.open, () => emit('close'))
 
 function onSubmitted() {
+  emit('submitted')
   emit('close')
 }
 </script>

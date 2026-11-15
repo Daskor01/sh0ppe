@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@lucide/vue": "^1.61.0",
+    "@netlify/blobs": "^11.1.9",
     "@pinia/nuxt": "^1.0.3",
     "nuxt": "^4.6.2",
     "pinia": "^4.1.0",
