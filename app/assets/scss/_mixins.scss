@@ -44,6 +44,27 @@
   outline-offset: 2px;
 }
 
+@mixin header-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+
+  :deep(svg) {
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+}
+
 /** No sticky tap outline on mobile; keyboard focus ring on fine-pointer devices. */
 @mixin focus-ring-fine-pointer-only {
   @media (max-width: 1023px) {

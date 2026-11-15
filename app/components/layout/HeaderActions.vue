@@ -9,7 +9,7 @@
       :aria-expanded="props.searchExpanded"
       @click="emit('searchClick')"
     >
-      <Search :size="20" aria-hidden="true" />
+      <Search :size="22" aria-hidden="true" />
     </button>
     <button
       type="button"
@@ -17,13 +17,17 @@
       aria-label="Open cart"
       @click="openCart()"
     >
-      <ShoppingCart :size="20" aria-hidden="true" />
-      <span v-if="showCartBadge" class="header-actions__badge">
+      <ShoppingCart :size="22" aria-hidden="true" />
+      <span
+        class="header-actions__badge"
+        :class="{ 'header-actions__badge--hidden': !showCartBadge }"
+        aria-hidden="true"
+      >
         {{ cart.totalItems }}
       </span>
     </button>
     <NuxtLink :to="accountSignInTo" class="header-actions__btn" aria-label="Account">
-      <User :size="20" aria-hidden="true" />
+      <User :size="22" aria-hidden="true" />
     </NuxtLink>
   </div>
 </template>
@@ -70,26 +74,18 @@
     }
 
     &__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border: none;
-      background: transparent;
-      color: var(--color-text);
+      position: relative;
       text-decoration: none;
       cursor: pointer;
-      position: relative;
 
-      &:focus-visible {
-        @include mixins.focus-ring;
-      }
+      @include mixins.header-icon-button;
+      @include mixins.focus-ring-fine-pointer-only;
     }
 
     &__badge {
       position: absolute;
-      top: -2px;
-      right: -6px;
+      top: 4px;
+      right: 4px;
       min-width: 16px;
       height: 16px;
       padding: 0 4px;
@@ -100,6 +96,11 @@
       color: var(--light-colors-white---light);
       background: var(--color-text);
       border-radius: 999px;
+
+      &--hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   }
 </style>

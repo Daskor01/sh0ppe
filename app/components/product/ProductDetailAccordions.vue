@@ -26,7 +26,7 @@
             :product-slug="productSlug"
             :reviews="detail.reviews"
             layout="mobile"
-            @submitted="emit('reviewSubmitted', $event)"
+            @submitted="onReviewsSubmitted($event)"
           />
           <p v-else>{{ section.body }}</p>
         </div>
@@ -53,6 +53,11 @@
   type SectionId = 'description' | 'additional' | 'reviews'
 
   const openId = ref<SectionId | null>(props.openSection ?? null)
+
+  function onReviewsSubmitted(payload: import('~/types/productReviewApi').ProductReviewsResponse) {
+    openId.value = 'reviews'
+    emit('reviewSubmitted', payload)
+  }
 
   watch(
     () => props.openSection,

@@ -65,7 +65,6 @@
     display: none;
     overflow: hidden;
     background: var(--color-surface);
-    transform: translateZ(0);
 
     @include mixins.respond-to(lg) {
       display: grid;

@@ -10,10 +10,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-  useSiteHeaderOffset()
-</script>
-
 <style scoped lang="scss">
   .layout-default {
     min-height: 100vh;
@@ -30,6 +26,7 @@
     &__main {
       flex: 1;
       min-width: 0;
+      padding-top: var(--site-header-offset, var(--header-height-mobile));
     }
   }
 </style>

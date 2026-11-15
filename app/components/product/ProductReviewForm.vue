@@ -112,12 +112,11 @@
     submitting.value = true
 
     try {
-      const response = await submitProductReview({
+      const response = submitProductReview({
         productSlug: props.productSlug,
         body: body.value.trim(),
         rating: rating.value,
         authorName,
-        isSignedIn: isSignedIn.value,
       })
 
       body.value = ''

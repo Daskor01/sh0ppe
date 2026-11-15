@@ -38,12 +38,10 @@
   import ProductSimilarSection from '~/components/product/ProductSimilarSection.vue'
   import { getProductPageContent, getSimilarProducts } from '~/data/productPages'
   import type { Product } from '~/types/product'
-  import type { ProductReviewsResponse } from '~/types/productReviewApi'
-
   const route = useRoute()
   const catalog = useCatalogStore()
-
   const slug = computed(() => String(route.params.slug))
+  const productReviews = useProductReviewsForSlug(() => product.value.slug)
 
   const product = computed((): Product => {
     const item = catalog.getProductBySlug(slug.value)
@@ -53,33 +51,21 @@
     return item
   })
 
-  const { data: reviewsPayload, refresh: refreshReviews } = await useFetch<ProductReviewsResponse>(
-    () => `/api/products/${slug.value}/reviews`,
-    { watch: [slug] },
-  )
-
   const detail = computed(() => {
     const base = getProductPageContent(product.value)
-    const fromApi = reviewsPayload.value
-    if (!fromApi) {
-      return base
-    }
+    const reviews = productReviews.value
     return {
       ...base,
-      reviews: fromApi.reviews,
-      reviewCount: fromApi.reviewCount,
+      reviews,
+      reviewCount: reviews.length,
     }
   })
   const similarProducts = computed(() => getSimilarProducts(product.value))
   const quantity = ref(1)
   const accordionSection = ref<'description' | 'additional' | 'reviews' | null>(null)
 
-  async function onReviewSubmitted(payload?: ProductReviewsResponse) {
-    if (payload) {
-      reviewsPayload.value = payload
-      return
-    }
-    await refreshReviews()
+  function onReviewSubmitted() {
+    accordionSection.value = 'reviews'
   }
 
   useSeoMeta({

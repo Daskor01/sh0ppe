@@ -24,7 +24,7 @@
             :product-slug="productSlug"
             :reviews="detail.reviews"
             layout="desktop"
-            @submitted="emit('reviewSubmitted', $event)"
+            @submitted="onReviewsSubmitted($event)"
           />
           <p v-else>{{ activePanelText }}</p>
         </div>
@@ -49,6 +49,11 @@
   type TabId = 'description' | 'additional' | 'reviews'
 
   const activeTab = ref<TabId>('description')
+
+  function onReviewsSubmitted(payload: import('~/types/productReviewApi').ProductReviewsResponse) {
+    activeTab.value = 'reviews'
+    emit('reviewSubmitted', payload)
+  }
 
   const activePanelText = computed(() => {
     if (activeTab.value === 'description') {

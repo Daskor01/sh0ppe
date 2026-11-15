@@ -35,7 +35,11 @@
                 @click="openCart()"
               >
                 <ShoppingCart :size="22" aria-hidden="true" />
-                <span v-if="showCartBadge" class="site-header__cart-badge">
+                <span
+                  class="site-header__cart-badge"
+                  :class="{ 'site-header__cart-badge--hidden': !showCartBadge }"
+                  aria-hidden="true"
+                >
                   {{ cart.totalItems }}
                 </span>
               </button>
@@ -47,7 +51,7 @@
                 aria-label="Open menu"
                 @click="toggle()"
               >
-                <Menu :size="24" aria-hidden="true" />
+                <Menu :size="22" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -162,10 +166,27 @@
     },
   )
 
+  const { syncHeaderOffset } = useSiteHeaderOffset()
+
   watch(desktopSearchOpen, (open) => {
     if (!open) {
       desktopSearchRecentsVisible.value = false
     }
+    nextTick(() => {
+      syncHeaderOffset()
+    })
+  })
+
+  watch(showShopMobileToolbar, () => {
+    nextTick(() => {
+      syncHeaderOffset()
+    })
+  })
+
+  watch(showMobileSearch, () => {
+    nextTick(() => {
+      syncHeaderOffset()
+    })
   })
 
   onMounted(() => {
@@ -185,8 +206,10 @@
 
 <style scoped lang="scss">
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    right: 0;
+    left: 0;
     z-index: var(--z-header);
     flex-shrink: 0;
     width: 100%;
@@ -330,26 +353,16 @@
 
     &__cart {
       position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: content-box;
-      width: 24px;
-      height: 24px;
-      padding: 6px;
-      flex-shrink: 0;
-      border: none;
-      background: transparent;
-      color: var(--color-text);
       cursor: pointer;
 
+      @include mixins.header-icon-button;
       @include mixins.focus-ring-fine-pointer-only;
     }
 
     &__cart-badge {
       position: absolute;
-      top: 2px;
-      right: 0;
+      top: 4px;
+      right: 4px;
       min-width: 16px;
       height: 16px;
       padding: 0 4px;
@@ -360,22 +373,17 @@
       color: var(--light-colors-white---light);
       background: var(--color-text);
       border-radius: 999px;
+
+      &--hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
     &__menu-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: content-box;
-      width: 24px;
-      height: 24px;
-      padding: 6px;
-      flex-shrink: 0;
-      border: none;
-      background: transparent;
       cursor: pointer;
-      color: var(--color-text);
 
+      @include mixins.header-icon-button;
       @include mixins.focus-ring-fine-pointer-only;
     }
 
