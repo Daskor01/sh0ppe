@@ -16,7 +16,7 @@ describe('useProductReviewsStore', () => {
       rating: 5,
       author: 'Tester',
     })
-    expect(reviews.some((r) => r.body === 'Nice product')).toBe(true)
+    expect(reviews[0]?.body).toBe('Nice product')
     const raw = localStorage.getItem('shoppe-product-user-reviews')
     expect(raw).toContain('Nice product')
   })

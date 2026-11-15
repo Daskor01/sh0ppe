@@ -24,9 +24,12 @@
     </label>
 
     <button
-      v-if="showClear"
+      v-if="props.clearable"
       type="button"
       class="search-field__clear"
+      :class="{ 'search-field__clear--hidden': !showClear }"
+      :aria-hidden="!showClear"
+      :tabindex="showClear ? 0 : -1"
       aria-label="Clear search"
       @click="clearInput()"
     >
@@ -147,6 +150,11 @@
         color var(--transition-base),
         background var(--transition-base);
 
+      &--hidden {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
       &:hover {
         color: var(--color-text);
         background: rgb(0 0 0 / 6%);
@@ -158,7 +166,9 @@
     }
 
     &--filled {
-      padding: 12px 16px;
+      box-sizing: border-box;
+      min-height: 44px;
+      padding: 10px 16px;
       background: var(--color-surface-muted);
       border-radius: var(--radius-md);
     }

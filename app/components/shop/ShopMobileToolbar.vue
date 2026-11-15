@@ -18,6 +18,7 @@
         :visible="showRecentQueries"
         require-focus-on-mobile
         :field-focused="fieldFocused"
+        :use-fade-transition="false"
       />
     </form>
     <button
@@ -73,6 +74,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    box-sizing: border-box;
+    min-height: var(--header-mobile-toolbar-block);
     padding-block: 0 16px;
     border-bottom: 1px solid var(--color-border);
 
@@ -84,7 +87,7 @@
       position: relative;
       flex: 1;
       min-width: 0;
-      z-index: 1;
+      z-index: var(--z-dropdown);
     }
 
     &__filters {
@@ -92,6 +95,7 @@
       flex-shrink: 0;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
       width: 44px;
       height: 44px;
       padding: 0;

@@ -43,7 +43,7 @@ export const useProductReviewsStore = defineStore('productReviews', () => {
 
   function mergedReviews(slug: string): ProductReview[] {
     const user = userBySlug.value[slug] ?? []
-    return [...getStaticProductReviews(slug), ...user]
+    return [...user, ...getStaticProductReviews(slug)]
   }
 
   function addReview(slug: string, input: AddProductReviewInput): ProductReview[] {
@@ -55,7 +55,7 @@ export const useProductReviewsStore = defineStore('productReviews', () => {
       rating: input.rating,
       body: input.body,
     }
-    const next = [...(userBySlug.value[slug] ?? []), review]
+    const next = [review, ...(userBySlug.value[slug] ?? [])]
     userBySlug.value = { ...userBySlug.value, [slug]: next }
     version.value += 1
     persist()

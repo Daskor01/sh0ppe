@@ -37,6 +37,8 @@
 
   --header-height-mobile: 56px;
   --header-height-desktop: 72px;
+  /** Mobile row under logo bar: 44px field + 16px bottom pad + 1px border */
+  --header-mobile-toolbar-block: 61px;
   --site-header-offset: var(--header-height-mobile);
   --shop-sidebar-sticky-top: calc(var(--header-height-desktop) + 32px);
 

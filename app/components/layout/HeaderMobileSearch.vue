@@ -12,6 +12,7 @@
         :visible="showRecentQueries"
         require-focus-on-mobile
         :field-focused="fieldFocused"
+        :use-fade-transition="false"
       />
     </form>
   </div>
@@ -51,7 +52,10 @@
 <style scoped lang="scss">
   .header-mobile-search {
     position: relative;
+    box-sizing: border-box;
+    min-height: var(--header-mobile-toolbar-block);
     padding-block: 0 16px;
+    border-bottom: 1px solid var(--color-border);
 
     @include mixins.respond-to(lg) {
       display: none;
@@ -59,6 +63,7 @@
 
     &__form {
       position: relative;
+      z-index: var(--z-dropdown);
     }
   }
 </style>
