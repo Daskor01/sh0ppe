@@ -60,15 +60,16 @@
         />
 
         <LayoutAppToast class="site-header__toast" />
-      </div>
-    </div>
 
-    <div v-show="showMobileSearch" class="site-header__mobile-search-band">
-      <LayoutHeaderMobileSearch
-        v-model="searchQuery"
-        @submit="submitSearch()"
-        @escape="onMobileSearchEscape()"
-      />
+        <LayoutHeaderMobileSearch
+          v-show="showMobileSearch"
+          v-model="searchQuery"
+          @submit="submitSearch()"
+          @escape="onMobileSearchEscape()"
+        />
+
+        <ShopMobileToolbar v-if="showShopMobileToolbar" />
+      </div>
     </div>
 
     <LayoutMobileNavMenu
@@ -105,6 +106,8 @@ const showMobileSearch = computed(() => {
   const path = route.path
   return path === '/' || path === '/shop'
 })
+
+const showShopMobileToolbar = computed(() => route.path === '/shop')
 
 function onDesktopSearchClick() {
   toggleDesktopSearch()
@@ -194,15 +197,6 @@ const navLinks = [
     z-index: var(--z-header);
     background: var(--color-surface);
     isolation: isolate;
-  }
-
-  &__mobile-search-band {
-    padding-inline: var(--gutter-mobile);
-    background: var(--color-surface);
-
-    @include mixins.respond-to(lg) {
-      display: none;
-    }
   }
 
   &__mobile-wrap {
@@ -384,7 +378,8 @@ const navLinks = [
     }
   }
 
-  &--menu-open &__mobile-search-band {
+  &--menu-open :deep(.header-mobile-search),
+  &--menu-open :deep(.shop-mobile-toolbar) {
     @media (max-width: 1023px) {
       pointer-events: none;
     }

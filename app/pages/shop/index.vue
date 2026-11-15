@@ -7,18 +7,6 @@
         class="shop-page__main"
         :class="shopMainClass"
       >
-        <header class="shop-page__mobile-head">
-          <h1 class="shop-page__mobile-title">Shop</h1>
-          <button
-            type="button"
-            class="shop-page__filters-btn"
-            @click="filters.openMobilePanel()"
-          >
-            <SlidersHorizontal :size="18" aria-hidden="true" />
-            Filters
-          </button>
-        </header>
-
         <div v-if="hasFilteredProducts" class="shop-page__grid">
           <ProductCard
             v-for="product in filters.filteredProducts"
@@ -36,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { SlidersHorizontal } from '@lucide/vue'
 import ProductCard from '~/components/product/ProductCard.vue'
 import ShopMobileFilters from '~/components/shop/ShopMobileFilters.vue'
 import ShopSidebar from '~/components/shop/ShopSidebar.vue'
@@ -58,7 +45,7 @@ const shopMainClass = computed(() => ({
 
 <style scoped lang="scss">
 .shop-page {
-  padding-block: 24px 48px;
+  padding-block: 16px 48px;
 
   @include mixins.respond-to(lg) {
     padding-block: 40px 64px;
@@ -81,47 +68,6 @@ const shopMainClass = computed(() => ({
 
     @include mixins.respond-to(lg) {
       display: block;
-    }
-  }
-
-  &__mobile-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 20px;
-
-    @include mixins.respond-to(lg) {
-      display: none;
-    }
-  }
-
-  &__mobile-title {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  &__filters-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0;
-    border: none;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    color: var(--color-accent);
-    background: transparent;
-    cursor: pointer;
-    transition: opacity var(--transition-base);
-
-    &:hover {
-      opacity: 0.78;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
     }
   }
 
