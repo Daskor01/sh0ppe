@@ -17,7 +17,7 @@
               <h2 class="hero__title">{{ slide.title }}</h2>
               <p class="hero__price">{{ formatPrice(slide.price) }}</p>
               <NuxtLink :to="slide.productTo" class="hero__cta-link">
-                <BaseButton variant="ghost-light">View Product</BaseButton>
+                <UiBaseButton variant="ghost-light">View Product</UiBaseButton>
               </NuxtLink>
             </div>
           </SwiperSlide>
@@ -39,7 +39,7 @@
               <h2 class="hero__title">{{ firstSlideView.title }}</h2>
               <p class="hero__price">{{ formatPrice(firstSlideView.price) }}</p>
               <NuxtLink :to="firstSlideView.productTo" class="hero__cta-link">
-                <BaseButton variant="ghost-light">View Product</BaseButton>
+                <UiBaseButton variant="ghost-light">View Product</UiBaseButton>
               </NuxtLink>
             </div>
           </article>

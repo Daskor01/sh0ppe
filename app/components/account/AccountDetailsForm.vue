@@ -8,14 +8,14 @@
 
     <form class="account-details__form" @submit.prevent>
       <div class="account-details__grid">
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           id="account-details-first-name"
           v-model="firstName"
           label="First name *"
           autocomplete="given-name"
           :disabled="ACCOUNT_PROFILE_READONLY"
         />
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           id="account-details-last-name"
           v-model="lastName"
           label="Last name *"
@@ -24,7 +24,7 @@
         />
       </div>
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-details-display-name"
         v-model="displayName"
         label="Display name *"
@@ -36,7 +36,7 @@
         This will be how your name will be displayed in the account section and in reviews.
       </p>
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-details-email"
         v-model="email"
         label="Email address *"
@@ -49,7 +49,7 @@
       <template v-if="!ACCOUNT_PROFILE_READONLY">
         <h3 class="account-details__subtitle">Password change</h3>
 
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           id="account-details-current-password"
           v-model="currentPassword"
           label="Current password (leave blank to leave unchanged)"
@@ -57,7 +57,7 @@
           autocomplete="current-password"
           class="account-details__field"
         />
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           id="account-details-new-password"
           v-model="newPassword"
           label="New password (leave blank to leave unchanged)"
@@ -65,7 +65,7 @@
           autocomplete="new-password"
           class="account-details__field"
         />
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           id="account-details-confirm-password"
           v-model="confirmPassword"
           label="Confirm new password"
@@ -74,9 +74,9 @@
           class="account-details__field"
         />
 
-        <BaseButton type="submit" variant="solid-black" class="account-details__submit">
+        <UiBaseButton type="submit" variant="solid-black" class="account-details__submit">
           Save Changes
-        </BaseButton>
+        </UiBaseButton>
       </template>
     </form>
   </section>

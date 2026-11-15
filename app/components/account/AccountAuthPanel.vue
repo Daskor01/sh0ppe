@@ -28,21 +28,19 @@
       class="account-auth__form"
       @submit.prevent="onSignIn()"
     >
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-sign-in-email"
         v-model="signInEmail"
         label="Email"
         type="email"
         autocomplete="email"
-        disabled
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-sign-in-password"
         v-model="signInPassword"
         label="Password"
         type="password"
         autocomplete="current-password"
-        disabled
       />
 
       <label class="account-auth__remember">
@@ -50,9 +48,9 @@
         <span>Remember me</span>
       </label>
 
-      <BaseButton type="submit" variant="solid-black" class="account-auth__submit">
+      <UiBaseButton type="submit" variant="solid-black" class="account-auth__submit">
         Sign in
-      </BaseButton>
+      </UiBaseButton>
 
       <NuxtLink to="/account/reset-password" class="account-auth__forgot">
         Have you forgotten your password?
@@ -60,26 +58,24 @@
     </form>
 
     <form v-else class="account-auth__form" @submit.prevent="onRegister()">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-register-email"
         v-model="registerEmail"
         label="Email"
         type="email"
         autocomplete="email"
-        disabled
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-register-password"
         v-model="registerPassword"
         label="Password"
         type="password"
         autocomplete="new-password"
-        disabled
       />
 
-      <BaseButton type="submit" variant="solid-black" class="account-auth__submit">
+      <UiBaseButton type="submit" variant="solid-black" class="account-auth__submit">
         Register
-      </BaseButton>
+      </UiBaseButton>
     </form>
   </div>
 </template>

@@ -114,6 +114,11 @@ const shopMainClass = computed(() => ({
     color: var(--color-accent);
     background: transparent;
     cursor: pointer;
+    transition: opacity var(--transition-base);
+
+    &:hover {
+      opacity: 0.78;
+    }
 
     &:focus-visible {
       @include mixins.focus-ring;

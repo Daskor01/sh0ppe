@@ -4,14 +4,14 @@
 
     <form class="account-address-form__body" @submit.prevent>
       <div class="account-address-form__grid">
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           :id="`${formId}-first-name`"
           v-model="billing.firstName"
           label="First name *"
           autocomplete="given-name"
           :disabled="ACCOUNT_PROFILE_READONLY"
         />
-        <BaseUnderlineField
+        <UiBaseUnderlineField
           :id="`${formId}-last-name`"
           v-model="billing.lastName"
           label="Last name *"
@@ -20,7 +20,7 @@
         />
       </div>
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-company`"
         v-model="billing.company"
         label="Company Name"
@@ -31,7 +31,7 @@
 
       <div class="account-address-form__field account-address-form__country">
         <span class="account-address-form__country-label">Country *</span>
-        <BaseSelect
+        <UiBaseSelect
           v-model="billing.country"
           variant="underline"
           :options="countryOptions"
@@ -40,7 +40,7 @@
         />
       </div>
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-street`"
         v-model="billing.street"
         label="Street Address *"
@@ -49,7 +49,7 @@
         :disabled="ACCOUNT_PROFILE_READONLY"
       />
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-postcode`"
         v-model="billing.postcode"
         label="Postcode / ZIP *"
@@ -58,7 +58,7 @@
         :disabled="ACCOUNT_PROFILE_READONLY"
       />
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-city`"
         v-model="billing.city"
         label="Town / City *"
@@ -67,7 +67,7 @@
         :disabled="ACCOUNT_PROFILE_READONLY"
       />
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-phone`"
         v-model="billing.phone"
         label="Phone *"
@@ -76,7 +76,7 @@
         :disabled="ACCOUNT_PROFILE_READONLY"
       />
 
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         :id="`${formId}-email`"
         v-model="billing.email"
         label="Email *"
@@ -86,7 +86,7 @@
         :disabled="ACCOUNT_PROFILE_READONLY"
       />
 
-      <BaseButton
+      <UiBaseButton
         v-if="!ACCOUNT_PROFILE_READONLY"
         type="submit"
         variant="solid-black"
@@ -94,7 +94,7 @@
         @click="emit('save')"
       >
         Save Address
-      </BaseButton>
+      </UiBaseButton>
     </form>
   </section>
 </template>

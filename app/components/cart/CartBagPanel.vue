@@ -23,7 +23,7 @@
         <span>Subtotal ({{ totalItems }} items)</span>
         <span>{{ formatPrice(subtotal) }}</span>
       </div>
-      <BaseButton variant="outline-dark" @click="onViewCart()">VIEW CART</BaseButton>
+      <UiBaseButton variant="outline-dark" @click="onViewCart()">VIEW CART</UiBaseButton>
     </footer>
   </div>
 </template>

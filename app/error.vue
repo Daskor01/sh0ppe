@@ -13,14 +13,14 @@
         {{ errorMessage }}
       </p>
 
-      <BaseButton
+      <UiBaseButton
         variant="outline-dark"
         :block="false"
         class="error-page__cta"
         @click="goHome()"
       >
         Homepage
-      </BaseButton>
+      </UiBaseButton>
     </section>
   </NuxtLayout>
 </template>

@@ -34,14 +34,14 @@
           </NuxtLink>
           <UiFavoriteButton :product-id="product.id" variant="circle" />
         </template>
-        <BaseButton
+        <UiBaseButton
           v-else
           variant="solid-dark"
           class="product-card__add-bar"
           @click="addToCart"
         >
           Add to cart
-        </BaseButton>
+        </UiBaseButton>
       </div>
     </div>
 

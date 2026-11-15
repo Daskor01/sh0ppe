@@ -24,14 +24,14 @@
     </dl>
 
     <NuxtLink v-slot="{ navigate }" to="/checkout" custom>
-      <BaseButton
+      <UiBaseButton
         variant="solid-black"
         class="cart-totals__checkout"
         @click="navigate"
         @keydown.enter="navigate"
       >
         Proceed to checkout
-      </BaseButton>
+      </UiBaseButton>
     </NuxtLink>
   </aside>
 </template>

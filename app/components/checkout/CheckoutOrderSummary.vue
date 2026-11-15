@@ -53,14 +53,14 @@
       {{ formError }}
     </p>
 
-    <BaseButton
+    <UiBaseButton
       variant="solid-black"
       class="checkout-order__submit"
       :disabled="submitDisabled"
       @click="onSubmit()"
     >
       Place order
-    </BaseButton>
+    </UiBaseButton>
   </aside>
 </template>
 

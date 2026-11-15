@@ -5,14 +5,14 @@
     </p>
 
     <div class="contact-form__row contact-form__row--split">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="contact-first-name"
         v-model="firstName"
         label="First name"
         autocomplete="given-name"
         clearable
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="contact-last-name"
         v-model="lastName"
         label="Last name"
@@ -21,7 +21,7 @@
     </div>
 
     <div class="contact-form__row contact-form__row--split">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="contact-email"
         v-model="email"
         label="Email"
@@ -31,7 +31,7 @@
 
       <div class="contact-form__subject">
         <span id="contact-subject-label" class="contact-form__subject-label">Subject</span>
-        <BaseSelect
+        <UiBaseSelect
           v-model="subject"
           variant="underline"
           :options="subjectOptions"
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <BaseUnderlineField
+    <UiBaseUnderlineField
       id="contact-message"
       v-model="message"
       label="Message"
@@ -53,9 +53,9 @@
       {{ formError }}
     </p>
 
-    <BaseButton type="submit" variant="solid-black" class="contact-form__submit">
+    <UiBaseButton type="submit" variant="solid-black" class="contact-form__submit">
       Send
-    </BaseButton>
+    </UiBaseButton>
   </form>
 </template>
 

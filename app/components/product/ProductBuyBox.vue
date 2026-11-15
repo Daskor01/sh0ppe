@@ -35,14 +35,14 @@
 
     <div class="product-buy__actions">
       <ProductQuantity v-model="quantity" class="product-buy__quantity" />
-      <BaseButton
+      <UiBaseButton
         variant="outline-dark"
         class="product-buy__cart-btn"
         :disabled="product.soldOut"
         @click="addToCart()"
       >
         {{ addToCartLabel }}
-      </BaseButton>
+      </UiBaseButton>
     </div>
 
     <ProductShareRow :product-id="product.id" :product-name="product.name" />

@@ -26,14 +26,14 @@
     </div>
 
     <div class="checkout-billing__grid">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-first-name"
         v-model="billing.firstName"
         label="First name *"
         autocomplete="given-name"
         :disabled="fieldsLocked"
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-last-name"
         v-model="billing.lastName"
         label="Last name *"
@@ -42,7 +42,7 @@
       />
     </div>
 
-    <BaseUnderlineField
+    <UiBaseUnderlineField
       id="checkout-company"
       v-model="billing.company"
       label="Company Name"
@@ -53,7 +53,7 @@
 
     <div class="checkout-billing__field checkout-billing__country">
       <span class="checkout-billing__country-label">Country *</span>
-      <BaseSelect
+      <UiBaseSelect
         v-model="billing.country"
         variant="underline"
         :options="countryOptions"
@@ -62,7 +62,7 @@
       />
     </div>
 
-    <BaseUnderlineField
+    <UiBaseUnderlineField
       id="checkout-street"
       v-model="billing.street"
       label="Street Address *"
@@ -72,14 +72,14 @@
     />
 
     <div class="checkout-billing__grid">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-postcode"
         v-model="billing.postcode"
         label="Postcode / ZIP *"
         autocomplete="postal-code"
         :disabled="fieldsLocked"
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-city"
         v-model="billing.city"
         label="Town / City *"
@@ -89,7 +89,7 @@
     </div>
 
     <div class="checkout-billing__grid">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-phone"
         v-model="billing.phone"
         label="Phone *"
@@ -97,7 +97,7 @@
         autocomplete="tel"
         :disabled="fieldsLocked"
       />
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="checkout-email"
         v-model="billing.email"
         label="Email *"
@@ -117,7 +117,7 @@
       <span>Ship to a different address?</span>
     </label>
 
-    <BaseUnderlineField
+    <UiBaseUnderlineField
       id="checkout-notes"
       v-model="billing.orderNotes"
       label="Order notes"

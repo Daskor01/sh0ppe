@@ -5,37 +5,28 @@
     </p>
 
     <form class="account-reset__form" @submit.prevent="onSubmit()">
-      <BaseUnderlineField
+      <UiBaseUnderlineField
         id="account-reset-email"
         v-model="email"
         label="Email"
         type="email"
         autocomplete="email"
-        disabled
       />
 
-      <BaseButton
-        v-if="!ACCOUNT_PROFILE_READONLY"
-        type="submit"
-        variant="solid-black"
-        class="account-reset__submit"
-      >
+      <UiBaseButton type="submit" variant="solid-black" class="account-reset__submit">
         Reset password
-      </BaseButton>
+      </UiBaseButton>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ACCOUNT_MOCK_EMAIL, ACCOUNT_PROFILE_READONLY } from '~/data/accountMock'
+import { ACCOUNT_MOCK_EMAIL } from '~/data/accountMock'
 
 const router = useRouter()
 const email = ref(ACCOUNT_MOCK_EMAIL)
 
 function onSubmit() {
-  if (ACCOUNT_PROFILE_READONLY) {
-    return
-  }
   router.push('/account/reset-password/sent')
 }
 </script>

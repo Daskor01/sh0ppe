@@ -11,7 +11,7 @@
         </p>
 
         <NuxtLink to="/account" class="account-sent__back">
-          <BaseButton variant="solid-black">Back to sign in</BaseButton>
+          <UiBaseButton variant="solid-black">Back to sign in</UiBaseButton>
         </NuxtLink>
       </div>
     </div>

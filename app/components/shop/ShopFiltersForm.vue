@@ -23,19 +23,25 @@
       :field-focused="searchFieldFocused"
     />
 
-    <BaseSelect
+    <UiBaseSelect
       v-model="filters.category"
       :options="categoryOptions"
+      variant="underline"
       aria-label="Category"
     />
 
-    <BaseSelect v-model="filters.sortBy" :options="sortOptions" aria-label="Sort by" />
+    <UiBaseSelect
+      v-model="filters.sortBy"
+      :options="sortOptions"
+      variant="underline"
+      aria-label="Sort by"
+    />
 
     <ShopPriceRange v-model:min="filters.priceMin" v-model:max="filters.priceMax" />
 
     <div class="shop-filters-form__toggles">
-      <BaseToggle v-model="filters.onSaleOnly" label="On sale" />
-      <BaseToggle v-model="filters.inStockOnly" label="In stock" />
+      <UiBaseToggle v-model="filters.onSaleOnly" label="On sale" />
+      <UiBaseToggle v-model="filters.inStockOnly" label="In stock" />
     </div>
   </form>
 </template>

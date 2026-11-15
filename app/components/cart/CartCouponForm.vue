@@ -13,14 +13,14 @@
       />
     </div>
 
-    <BaseButton
+    <UiBaseButton
       type="submit"
       variant="solid-black"
       :block="false"
       class="cart-coupon__btn"
     >
       Apply coupon
-    </BaseButton>
+    </UiBaseButton>
 
     <p v-if="couponMessage" class="cart-coupon__message" role="status">
       {{ couponMessage }}
