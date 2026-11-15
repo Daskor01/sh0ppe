@@ -15,14 +15,14 @@
         :detail="detail"
         :product-name="product.name"
         :product-slug="product.slug"
-        @review-submitted="refreshReviews()"
+        @review-submitted="onReviewSubmitted()"
       />
       <ProductDetailAccordions
         :detail="detail"
         :product-name="product.name"
         :product-slug="product.slug"
         :open-section="accordionSection"
-        @review-submitted="refreshReviews()"
+        @review-submitted="onReviewSubmitted()"
       />
     </div>
 
@@ -73,6 +73,10 @@ const detail = computed(() => {
 const similarProducts = computed(() => getSimilarProducts(product.value))
 const quantity = ref(1)
 const accordionSection = ref<'description' | 'additional' | 'reviews' | null>(null)
+
+async function onReviewSubmitted() {
+  await refreshReviews()
+}
 
 useSeoMeta({
   title: () => `${product.value.name} — SHOPPE`,

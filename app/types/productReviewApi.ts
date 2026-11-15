@@ -8,4 +8,6 @@ export type ProductReviewsResponse = {
 export type CreateProductReviewBody = {
   body: string
   rating: number
+  /** Display name when posting as a guest. */
+  author?: string
 }

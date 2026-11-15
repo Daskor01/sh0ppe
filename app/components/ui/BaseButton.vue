@@ -3,9 +3,11 @@
     :type="props.type"
     class="base-button"
     :class="buttonClass"
-    :disabled="props.disabled"
+    :disabled="isDisabled"
+    :aria-busy="props.loading"
   >
-    <slot />
+    <slot v-if="!props.loading" />
+    <span v-else class="base-button__loading">{{ loadingLabel }}</span>
   </button>
 </template>
 
@@ -16,14 +18,20 @@ const props = withDefaults(
     block?: boolean
     type?: 'button' | 'submit'
     disabled?: boolean
+    loading?: boolean
+    loadingLabel?: string
   }>(),
   {
     variant: 'solid-dark',
     type: 'button',
     disabled: false,
+    loading: false,
+    loadingLabel: 'Loading…',
     block: true,
   },
 )
+
+const isDisabled = computed(() => props.disabled || props.loading)
 
 const buttonClass = computed(() => [
   `base-button--${props.variant}`,
@@ -74,6 +82,13 @@ const buttonClass = computed(() => [
 
   &--inline {
     width: auto;
+  }
+
+  &__loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   &--solid-black {

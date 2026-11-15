@@ -121,9 +121,7 @@ function isOpen(id: SectionId) {
     background: transparent;
     cursor: pointer;
 
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
+    @include mixins.focus-ring-fine-pointer-only;
   }
 
   &__chevron {

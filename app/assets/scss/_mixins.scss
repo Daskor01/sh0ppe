@@ -44,6 +44,24 @@
   outline-offset: 2px;
 }
 
+/** No sticky tap outline on mobile; keyboard focus ring on fine-pointer devices. */
+@mixin focus-ring-fine-pointer-only {
+  @media (max-width: 1023px) {
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
+
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
 // iOS Safari zooms focused inputs below 16px — bump on narrow viewports
 @mixin field-text-size {
   font-size: 16px;

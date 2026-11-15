@@ -102,9 +102,7 @@ function onLogout() {
       color: var(--color-text);
     }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
+    @include mixins.focus-ring-fine-pointer-only;
 
     &--active {
       color: var(--color-text);

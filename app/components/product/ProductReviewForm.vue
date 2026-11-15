@@ -21,6 +21,7 @@
       label="Your Review*"
       multiline
       :rows="5"
+      :disabled="submitting"
     />
 
     <template v-if="!isSignedIn">
@@ -29,6 +30,7 @@
         v-model="name"
         label="Enter your name*"
         autocomplete="name"
+        :disabled="submitting"
       />
 
       <UiBaseUnderlineField
@@ -37,10 +39,16 @@
         label="Enter your Email*"
         type="email"
         autocomplete="email"
+        :disabled="submitting"
       />
 
       <label class="product-review-form__checkbox">
-        <input v-model="saveInBrowser" type="checkbox" class="product-review-form__checkbox-input" />
+        <input
+          v-model="saveInBrowser"
+          type="checkbox"
+          class="product-review-form__checkbox-input"
+          :disabled="submitting"
+        />
         <span>
           Save my name, email, and website in this browser for the next time I comment.
         </span>
@@ -56,6 +64,8 @@
       type="submit"
       variant="solid-black"
       class="product-review-form__submit"
+      :loading="submitting"
+      loading-label="Submitting…"
       :disabled="submitting"
     >
       Submit
@@ -65,6 +75,7 @@
 
 <script setup lang="ts">
 import ProductReviewStars from '~/components/product/ProductReviewStars.vue'
+import { reviewSubmitErrorMessage, submitProductReview } from '~/composables/useSubmitProductReview'
 
 const props = defineProps<{
   productSlug: string
@@ -74,15 +85,18 @@ const emit = defineEmits<{
   submitted: []
 }>()
 
-const { isSignedIn, displayName, email: accountEmail } = useAccountSession()
+const { isSignedIn, displayName, email: accountEmail, syncFromCookie } = useAccountSession()
 
 const body = ref('')
 const name = ref('')
 const email = ref('')
 const saveInBrowser = ref(false)
 const rating = ref(0)
-
 const submitting = ref(false)
+
+onMounted(() => {
+  syncFromCookie()
+})
 
 async function onSubmit() {
   const authorName = isSignedIn.value ? displayName.value.trim() : name.value.trim()
@@ -93,41 +107,38 @@ async function onSubmit() {
     return
   }
 
-  if (isSignedIn.value) {
-    if (submitting.value) {
-      return
-    }
-    submitting.value = true
+  if (submitting.value) {
+    return
   }
 
+  submitting.value = true
+
   try {
-    if (isSignedIn.value) {
-      await $fetch(`/api/products/${props.productSlug}/reviews`, {
-        method: 'POST',
-        body: {
-          body: body.value.trim(),
-          rating: rating.value,
-        },
-      })
-      useToastStore().show({
-        message: `Thank you, ${displayName.value}! Your review was posted.`,
-      })
-    } else {
-      useToastStore().show({
-        message: 'Thank you! Your review was submitted (demo). Sign in to publish a review.',
-      })
-    }
+    await submitProductReview({
+      productSlug: props.productSlug,
+      body: body.value.trim(),
+      rating: rating.value,
+      authorName,
+      isSignedIn: isSignedIn.value,
+    })
 
     body.value = ''
     name.value = ''
     email.value = ''
     rating.value = 0
     saveInBrowser.value = false
+
     emit('submitted')
-  } catch {
+
+    await nextTick()
+
     useToastStore().show({
-      message: 'Could not save your review. Please sign in and try again.',
+      message: isSignedIn.value
+        ? `Thanks, ${displayName.value}! Your review was posted.`
+        : 'Thank you! Your review was posted.',
     })
+  } catch (error: unknown) {
+    useToastStore().show({ message: reviewSubmitErrorMessage(error) })
   } finally {
     submitting.value = false
   }

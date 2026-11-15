@@ -84,6 +84,7 @@ function onFocusOut(event: FocusEvent) {
     position: relative;
     flex: 1;
     min-width: 0;
+    z-index: 1;
   }
 
   &__filters {

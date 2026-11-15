@@ -191,10 +191,12 @@ const navLinks = [
   flex-shrink: 0;
   width: 100%;
   background: var(--color-surface);
+  isolation: isolate;
 
   &__sticky {
     width: 100%;
     background: var(--color-surface);
+    transform: translateZ(0);
   }
 
   &__mobile-wrap {
@@ -208,10 +210,9 @@ const navLinks = [
   &__bar {
     position: relative;
     z-index: var(--z-header-bar);
-    border-bottom: 1px solid transparent;
 
     @include mixins.respond-to(lg) {
-      border-bottom-color: var(--color-border);
+      box-shadow: inset 0 -1px 0 var(--color-border);
     }
   }
 
@@ -220,7 +221,7 @@ const navLinks = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: var(--header-height-mobile);
+    height: var(--header-height-mobile);
     gap: 16px;
 
     @media (max-width: 1023px) {
@@ -232,7 +233,7 @@ const navLinks = [
 
     @include mixins.respond-to(lg) {
       align-items: stretch;
-      min-height: var(--header-height-desktop);
+      height: var(--header-height-desktop);
     }
   }
 

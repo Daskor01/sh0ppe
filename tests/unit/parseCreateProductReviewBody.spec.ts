@@ -7,6 +7,11 @@ describe('parseCreateProductReviewBody', () => {
       body: 'Nice!',
       rating: 5,
     })
+    expect(parseCreateProductReviewBody({ body: 'Ok', rating: 4, author: 'Alex' })).toEqual({
+      body: 'Ok',
+      rating: 4,
+      author: 'Alex',
+    })
   })
 
   it('rejects empty body and invalid rating', () => {

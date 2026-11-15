@@ -164,9 +164,7 @@ function onRegister() {
       box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
     }
 
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
+    @include mixins.focus-ring-fine-pointer-only;
   }
 
   &__form {

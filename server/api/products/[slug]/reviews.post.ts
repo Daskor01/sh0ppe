@@ -4,12 +4,11 @@ import type { ProductReviewsResponse } from '~/types/productReviewApi'
 import { formatReviewDateLabel } from '~/utils/formatReviewDate'
 import { parseCreateProductReviewBody } from '~/utils/parseCreateProductReviewBody'
 import { assertKnownProductSlug } from '../../../utils/productSlug'
-import { requireSignedInReviewer } from '../../../utils/reviewAuth'
+import { resolveReviewAuthor } from '../../../utils/reviewAuthor'
 import { appendStoredProductReview, readStoredProductReviews } from '../../../utils/reviewStore'
 
 export default defineEventHandler(async (event): Promise<ProductReviewsResponse> => {
   const slug = assertKnownProductSlug(getRouterParam(event, 'slug'))
-  const { displayName } = requireSignedInReviewer(event)
 
   const payload = parseCreateProductReviewBody(await readBody(event))
   if (!payload) {
@@ -19,9 +18,11 @@ export default defineEventHandler(async (event): Promise<ProductReviewsResponse>
     })
   }
 
+  const author = resolveReviewAuthor(event, payload)
+
   const review: ProductReview = {
     id: `user-${crypto.randomUUID()}`,
-    author: displayName,
+    author,
     dateLabel: formatReviewDateLabel(new Date()),
     rating: payload.rating,
     body: payload.body,

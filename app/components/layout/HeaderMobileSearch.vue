@@ -54,10 +54,15 @@ function onFocusOut(event: FocusEvent) {
 
 <style scoped lang="scss">
 .header-mobile-search {
+  position: relative;
   padding-block: 0 16px;
 
   @include mixins.respond-to(lg) {
     display: none;
+  }
+
+  &__form {
+    position: relative;
   }
 }
 </style>

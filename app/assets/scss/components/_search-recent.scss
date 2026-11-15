@@ -10,11 +10,24 @@
     pointer-events: none;
   }
 
+  &--require-focus-mobile {
+    @media (max-width: 1023px) {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: var(--z-dropdown);
+      margin-top: 8px;
+    }
+  }
+
   &--require-focus-mobile:not(&--focused) {
     @media (max-width: 1023px) {
       margin-top: 0;
+      max-height: 0;
+      overflow: hidden;
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateY(-4px);
       pointer-events: none;
     }
   }
