@@ -1,1 +1,0 @@
-{"root":["./components/appheader.spec.ts","./components/productcard.spec.ts","./unit/favorites.spec.ts","./unit/productprice.spec.ts","./unit/shopfilterquery.spec.ts","./unit/storageparse.spec.ts","./unit/toast.spec.ts","./unit/usemobilenav.spec.ts","../vitest.config.ts"],"errors":true,"version":"6.0.3"}
